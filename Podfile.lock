@@ -1,0 +1,54 @@
+PODS:
+  - Alamofire (4.0.1)
+  - CYLTabBarController (1.6.7)
+  - EZSwiftExtensions (1.7)
+  - Kingfisher (3.1.4)
+  - Moya (8.0.0-beta.4):
+    - Moya/Core (= 8.0.0-beta.4)
+  - Moya/Core (8.0.0-beta.4):
+    - Alamofire (~> 4.0)
+    - Result (~> 3.0)
+  - Result (3.0.0)
+  - Reusable (3.0.0):
+    - Reusable/Storyboard (= 3.0.0)
+    - Reusable/View (= 3.0.0)
+  - Reusable/Storyboard (3.0.0)
+  - Reusable/View (3.0.0)
+  - RxCocoa (3.0.1):
+    - RxSwift (~> 3.0)
+  - RxDataSources (1.0.0):
+    - RxCocoa (~> 3.0)
+    - RxSwift (~> 3.0)
+  - RxSwift (3.0.1)
+  - SnapKit (3.0.2)
+  - Then (2.1.0)
+
+DEPENDENCIES:
+  - Alamofire (~> 4.0.1)
+  - CYLTabBarController (~> 1.6.5)
+  - EZSwiftExtensions
+  - Kingfisher (~> 3.1.4)
+  - Moya (~> 8.0.0-beta.3)
+  - Reusable (~> 3.0.0)
+  - RxDataSources (~> 1.0)
+  - RxSwift
+  - SnapKit (~> 3.0.2)
+  - Then (~> 2.1)
+
+SPEC CHECKSUMS:
+  Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
+  CYLTabBarController: cc8b19463bd3a3d4b886a55c0a9440fdceefd3d6
+  EZSwiftExtensions: 4afef248066a036903d8496bf07bc355b22ce766
+  Kingfisher: 6c67e3e57f2d81a9cfdfa25052cd86f33ceac9bb
+  Moya: bad6f72ec40661f09a8cd85ab470226d2795a485
+  Result: 1b3e431f37cbcd3ad89c6aa9ab0ae55515fae3b6
+  Reusable: ab77c4c51a4b9606946df70e30cb8ad9cf75c226
+  RxCocoa: 15a52fc590dcc700cb4a690a633b5c5184ce3a78
+  RxDataSources: 824693e84d00781d0a5e5cedc1ff95ce9250aacd
+  RxSwift: af5680055c4ad04480189c52d28385b1029493a6
+  SnapKit: 2e456761aa92d4d4067a7a5594c18769d451a8ad
+  Then: 8496793c8fcac95482b943909b440724c7d8d82c
+
+PODFILE CHECKSUM: d9af9ab09625e8fd78f0cc599b572f081e2aa6cd
+
+COCOAPODS: 1.0.1
