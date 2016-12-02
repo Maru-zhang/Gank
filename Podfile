@@ -11,8 +11,10 @@ def shared_pods
 	pod 'Alamofire', '~> 4.0.1'
     pod 'Then', '~> 2.1'
     pod 'SnapKit', '~> 3.0.2'
-    pod 'CYLTabBarController', '~> 1.6.5'
     pod 'EZSwiftExtensions'
+    pod 'HMSegmentedControl'
+    pod 'PullToRefresher', '~> 2.0'
+    pod 'Moya-ObjectMapper', :git => 'https://github.com/ivanbruel/Moya-ObjectMapper'
 end
 
 target :'Gank' do
