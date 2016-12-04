@@ -9,7 +9,18 @@
 import UIKit
 import Reusable
 
-final class HomeTableViewCell: UITableViewCell,Reusable {
+final class HomeTableViewCell: UITableViewCell,NibReusable {
+    
+    static let height: CGFloat = 100.0
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+//        HomeTableViewCell.loadFromNib(owner: self)
+    }
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -21,5 +32,4 @@ final class HomeTableViewCell: UITableViewCell,Reusable {
 
         // Configure the view for the selected state
     }
-    
 }

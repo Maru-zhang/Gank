@@ -19,7 +19,7 @@ final class HomeViewController: UIViewController {
         $0.sectionTitles = ["All","Android","iOS","休息视频","福利","拓展资源","前端","瞎推荐","App"]
     }
     
-    let tableView = UITableView().then { tableview in
+    let tableView = UITableView().then {
         $0.register(cellType: HomeTableViewCell.self)
     }
 
@@ -37,6 +37,9 @@ extension HomeViewController {
     // MARK: - Private Method
     
     fileprivate func setupUI() {
+        
+        tableView.delegate = self
+        tableView.dataSource = self
 
         view.addSubview(segement)
         view.addSubview(tableView)
@@ -69,7 +72,14 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell.init()
+        
+        let cell = tableView.dequeueReusableCell(for: indexPath, cellType: HomeTableViewCell.self)
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return HomeTableViewCell.height
     }
 
 }
