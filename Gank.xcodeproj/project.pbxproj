@@ -15,6 +15,7 @@
 		AFA7EC731DEEDEDC00138AEE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFA7EC711DEEDEDC00138AEE /* Main.storyboard */; };
 		AFA7EC751DEEDEDC00138AEE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFA7EC741DEEDEDC00138AEE /* Assets.xcassets */; };
 		AFA7EC781DEEDEDC00138AEE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFA7EC761DEEDEDC00138AEE /* LaunchScreen.storyboard */; };
+		AFBDB2621DF58F23003E8EE2 /* GankAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBDB2611DF58F23003E8EE2 /* GankAPI.swift */; };
 		F2322ED0BDDB5547F4A1D973 /* Pods_Gank.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECF6CC27851F092E4B160AF6 /* Pods_Gank.framework */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +33,7 @@
 		AFA7EC771DEEDEDC00138AEE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AFA7EC791DEEDEDC00138AEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AFA7EC831DEF4D5900138AEE /* Gank-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Gank-Bridging-Header.h"; sourceTree = "<group>"; };
+		AFBDB2611DF58F23003E8EE2 /* GankAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GankAPI.swift; sourceTree = "<group>"; };
 		ECF6CC27851F092E4B160AF6 /* Pods_Gank.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Gank.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -118,6 +120,7 @@
 		AFA7EC6C1DEEDEDC00138AEE /* Gank */ = {
 			isa = PBXGroup;
 			children = (
+				AFBDB25F1DF58ED9003E8EE2 /* Services */,
 				AFA7EC821DEF4CA600138AEE /* Config */,
 				AF9F0FCE1DF1A66300FF8EC5 /* Models */,
 				AFA7EC7F1DEF4BB400138AEE /* Controllers */,
@@ -145,6 +148,22 @@
 				AFA7EC831DEF4D5900138AEE /* Gank-Bridging-Header.h */,
 			);
 			path = Config;
+			sourceTree = "<group>";
+		};
+		AFBDB25F1DF58ED9003E8EE2 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				AFBDB2601DF58EF1003E8EE2 /* Network */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		AFBDB2601DF58EF1003E8EE2 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				AFBDB2611DF58F23003E8EE2 /* GankAPI.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		B934ED3498AB176D331F2919 /* Pods */ = {
@@ -281,6 +300,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFBDB2621DF58F23003E8EE2 /* GankAPI.swift in Sources */,
 				AFA7EC6E1DEEDEDC00138AEE /* AppDelegate.swift in Sources */,
 				AF9F0FD11DF1A6CD00FF8EC5 /* Brick.swift in Sources */,
 				AF9F0FD91DF1A9E900FF8EC5 /* HomeTableViewCell.swift in Sources */,

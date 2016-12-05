@@ -12,6 +12,8 @@ import EZSwiftExtensions
 import Then
 import SnapKit
 import Reusable
+import Moya
+import RxSwift
 
 final class HomeViewController: UIViewController {
     
@@ -21,6 +23,10 @@ final class HomeViewController: UIViewController {
     
     let tableView = UITableView().then {
         $0.register(cellType: HomeTableViewCell.self)
+    }
+    
+    let refreshControl = UIRefreshControl().then {
+        $0.tintColor = UIColor.lightGray
     }
 
     // MARK: - Life Cycle
@@ -40,6 +46,8 @@ extension HomeViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
+        
+        tableView.refreshControl = refreshControl
 
         view.addSubview(segement)
         view.addSubview(tableView)
@@ -54,6 +62,18 @@ extension HomeViewController {
             make.left.right.bottom.equalTo(view)
             make.top.equalTo(segement.snp.bottom)
         }
+        
+//        let provider = RxMoyaProvider<GankAPI>()
+//        provider.request(.data(type: "Android", size: 20, index: 0)).subscribe { event in
+//            switch event {
+//            case let .next(response):
+//                print(String.init(data: response.data, encoding: .utf8))
+//            case let .error(error):
+//                print(error)
+//            default:
+//                break
+//            }
+//        }
         
     }
     

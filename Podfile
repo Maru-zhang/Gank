@@ -3,7 +3,7 @@ platform :ios, '9.0'
 use_frameworks!
 
 def shared_pods
-	pod 'Moya', '~> 8.0.0-beta.3'
+	pod 'Moya/RxSwift'
 	pod 'RxSwift'
 	pod 'RxDataSources', '~> 1.0'
 	pod 'Reusable', '~> 3.0.0'
