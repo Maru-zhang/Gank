@@ -14,6 +14,7 @@ import SnapKit
 import Reusable
 import Moya
 import RxSwift
+import RxCocoa
 
 final class HomeViewController: UIViewController {
     
@@ -28,13 +29,15 @@ final class HomeViewController: UIViewController {
     let refreshControl = UIRefreshControl().then {
         $0.tintColor = UIColor.lightGray
     }
+    
+    let disposeBag = DisposeBag()
 
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
         
+        setupUI()
     }
 }
 
@@ -62,6 +65,8 @@ extension HomeViewController {
             make.left.right.bottom.equalTo(view)
             make.top.equalTo(segement.snp.bottom)
         }
+        
+        let _ = refreshControl.rx.refreshing
         
 //        let provider = RxMoyaProvider<GankAPI>()
 //        provider.request(.data(type: "Android", size: 20, index: 0)).subscribe { event in

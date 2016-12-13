@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Brick {
+struct Brick: Equatable {
     
     var _id: String
     var createdAt: String
@@ -20,5 +20,9 @@ struct Brick {
     var used: String
     var who: String
     var images: [String]
+    
+    public static func ==(lhs: Brick, rhs: Brick) -> Bool {
+        return lhs._id == rhs._id ? true : false
+    }
     
 }
