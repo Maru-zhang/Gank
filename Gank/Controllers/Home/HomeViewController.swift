@@ -12,9 +12,10 @@ import EZSwiftExtensions
 import Then
 import SnapKit
 import Reusable
-import Moya
 import RxSwift
 import RxCocoa
+import Moya
+import ObjectMapper
 
 final class HomeViewController: UIViewController {
     
@@ -29,6 +30,8 @@ final class HomeViewController: UIViewController {
     let refreshControl = UIRefreshControl().then {
         $0.tintColor = UIColor.lightGray
     }
+    
+    let homeVM = HomeViewModel()
     
     let disposeBag = DisposeBag()
 
@@ -47,9 +50,6 @@ extension HomeViewController {
     
     fileprivate func setupUI() {
         
-        tableView.delegate = self
-        tableView.dataSource = self
-        
         tableView.refreshControl = refreshControl
 
         view.addSubview(segement)
@@ -66,42 +66,44 @@ extension HomeViewController {
             make.top.equalTo(segement.snp.bottom)
         }
         
+        // Binding
+        
+        Observable.just([homeVM.section])
+            .bindTo(tableView.rx.items(dataSource: homeVM.dataSource))
+            .addDisposableTo(disposeBag)
+        
+        tableView.rx.setDelegate(self)
+            .addDisposableTo(disposeBag)
+        
+        // Configure
+        
+        homeVM.dataSource.configureCell = { ds, tv, ip, item in
+            let cell = tv.dequeueReusableCell(for: ip, cellType: HomeTableViewCell.self)
+            return cell
+        }
+        
         let _ = refreshControl.rx.refreshing
         
-//        let provider = RxMoyaProvider<GankAPI>()
-//        provider.request(.data(type: "Android", size: 20, index: 0)).subscribe { event in
-//            switch event {
-//            case let .next(response):
-//                print(String.init(data: response.data, encoding: .utf8))
-//            case let .error(error):
-//                print(error)
-//            default:
-//                break
-//            }
-//        }
+        let provider = RxMoyaProvider<GankAPI>()
+        provider.request(.data(type: .iOS, size: 20, index: 0)).map { (res) -> () in
+            debugPrint(res)
+            return ()
+        }
         
     }
     
 }
 
-extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
+extension HomeViewController {
     
-    // MARK: - Private Method
+    // MARK: - Private Methpd
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    fileprivate func refreshAction() {
         
-        let cell = tableView.dequeueReusableCell(for: indexPath, cellType: HomeTableViewCell.self)
-        
-        return cell
     }
+}
+
+extension HomeViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return HomeTableViewCell.height

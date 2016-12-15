@@ -10,38 +10,17 @@ import UIKit
 import RxSwift
 import RxCocoa
 import RxDataSources
-
-//struct MySection {
-//    var header: String
-//    var items: [Item]
-//}
-//
-//extension MySection : AnimatableSectionModelType {
-//    typealias Item = Int
-//    
-//    var identity: String {
-//        return header
-//    }
-//    
-//    init(original: MySection, items: [Item]) {
-//        self = original
-//        self.items = items
-//    }
-//}
-
+import Moya
 
 struct HomeSection {
     
+    var header: String
     var items: [Item]
 }
 
-extension HomeSection: AnimatableSectionModelType {
+extension HomeSection: SectionModelType {
     
-    typealias Item = Int
-
-    var identity: String {
-        return String(describing: HomeSection.self)
-    }
+    typealias Item = Brick
     
     init(original: HomeSection, items: [HomeSection.Item]) {
         self = original
@@ -52,16 +31,36 @@ extension HomeSection: AnimatableSectionModelType {
 class HomeViewModel {
     
     /// 首页干货
-//    let dataSource = Variable<[Brick]>([])
+    
+    let section = HomeSection(header: "", items: [Brick()])
     
     let refreshCommand = PublishSubject<Void>()
     
-    let dataSource = RxTableViewSectionedAnimatedDataSource<HomeSection>()
+    let dataSource = RxTableViewSectionedReloadDataSource<HomeSection>()
+    
+    fileprivate let disposeBag = DisposeBag()
+
     
     
     init() {
-        
     
+        
+        refreshCommand.subscribe { [unowned self] (_) in
+            
+            let provider = RxMoyaProvider<GankAPI>()
+            provider.request(.data(type: .iOS, size: 20, index: 0)).subscribe { event in
+                switch event {
+                case let .next(response):
+                    print(String.init(data: response.data, encoding: .utf8))
+                case let .error(error):
+                    print(error)
+                default:
+                    break
+                }
+            }.addDisposableTo(self.disposeBag)
+
+        }.addDisposableTo(disposeBag)
     }
+    
 
 }

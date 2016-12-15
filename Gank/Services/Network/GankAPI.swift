@@ -10,8 +10,25 @@ import Foundation
 import Moya
 
 enum GankAPI {
-    case data(type: String,size: Int64,index: Int64)
+    
+    enum GankCategory: String {
+        case All = "all"
+        case Android = "Android"
+        case iOS = "iOS"
+        case Video = "休息视频"
+        case Welfare = "福利"
+        case Resource = "拓展资源"
+        case FrontEnd = "前端"
+        case Mass = "瞎推荐"
+        case APP = "App"
+    }
+    
+    case data(type: GankCategory,size: Int64,index: Int64)
+    
+
 }
+
+
 
 extension GankAPI: TargetType {
     
@@ -20,7 +37,7 @@ extension GankAPI: TargetType {
     var path: String {
         switch self {
         case .data(let type,let size,let index):
-            return "/api/data/\(type)/\(size)/\(index)"
+            return "/api/data/\(type.rawValue)/\(size)/\(index)"
         }
     }
     
