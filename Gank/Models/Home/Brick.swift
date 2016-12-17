@@ -28,6 +28,8 @@ struct Brick: Equatable,Mappable {
     
     init?(map: Map) { }
     
+    init() { }
+    
     mutating func mapping(map: Map) {
         _id <- map["id"]
         createdAt <- map["createdAt"]

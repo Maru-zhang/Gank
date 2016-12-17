@@ -14,6 +14,8 @@ def shared_pods
     pod 'EZSwiftExtensions'
     pod 'HMSegmentedControl'
     pod 'PullToRefresher', '~> 2.0'
+    pod 'Action'
+    pod 'RxOptional'
     pod 'Moya-ObjectMapper', :git => 'https://github.com/ivanbruel/Moya-ObjectMapper'
 end
 

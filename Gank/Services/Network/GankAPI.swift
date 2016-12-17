@@ -12,20 +12,18 @@ import Moya
 enum GankAPI {
     
     enum GankCategory: String {
-        case All = "all"
-        case Android = "Android"
-        case iOS = "iOS"
-        case Video = "休息视频"
-        case Welfare = "福利"
+        case All      = "all"
+        case Android  = "Android"
+        case iOS      = "iOS"
+        case Video    = "休息视频"
+        case Welfare  = "福利"
         case Resource = "拓展资源"
         case FrontEnd = "前端"
-        case Mass = "瞎推荐"
-        case APP = "App"
+        case Mass     = "瞎推荐"
+        case APP      = "App"
     }
     
     case data(type: GankCategory,size: Int64,index: Int64)
-    
-
 }
 
 

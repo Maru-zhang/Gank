@@ -1,4 +1,7 @@
 PODS:
+  - Action (2.1.0):
+    - RxCocoa (~> 3.0)
+    - RxSwift (~> 3.0)
   - Alamofire (4.0.1)
   - EZSwiftExtensions (1.7)
   - HMSegmentedControl (1.5.3)
@@ -29,11 +32,15 @@ PODS:
   - RxDataSources (1.0.0):
     - RxCocoa (~> 3.0)
     - RxSwift (~> 3.0)
+  - RxOptional (3.1.3):
+    - RxCocoa
+    - RxSwift
   - RxSwift (3.0.1)
   - SnapKit (3.0.2)
   - Then (2.1.0)
 
 DEPENDENCIES:
+  - Action
   - Alamofire (~> 4.0.1)
   - EZSwiftExtensions
   - HMSegmentedControl
@@ -43,6 +50,7 @@ DEPENDENCIES:
   - PullToRefresher (~> 2.0)
   - Reusable (~> 3.0.0)
   - RxDataSources (~> 1.0)
+  - RxOptional
   - RxSwift
   - SnapKit (~> 3.0.2)
   - Then (~> 2.1)
@@ -57,6 +65,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/ivanbruel/Moya-ObjectMapper
 
 SPEC CHECKSUMS:
+  Action: b02569f7169ae825e71d5a41ef727719ca5cc840
   Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
   EZSwiftExtensions: 4afef248066a036903d8496bf07bc355b22ce766
   HMSegmentedControl: 7c6145afb50f26cec5f3243082f6f12b9f41318f
@@ -69,10 +78,11 @@ SPEC CHECKSUMS:
   Reusable: ab77c4c51a4b9606946df70e30cb8ad9cf75c226
   RxCocoa: 15a52fc590dcc700cb4a690a633b5c5184ce3a78
   RxDataSources: 824693e84d00781d0a5e5cedc1ff95ce9250aacd
+  RxOptional: b97b59183af80d1e729ac9e51d09a10be668d6a8
   RxSwift: af5680055c4ad04480189c52d28385b1029493a6
   SnapKit: 2e456761aa92d4d4067a7a5594c18769d451a8ad
   Then: 8496793c8fcac95482b943909b440724c7d8d82c
 
-PODFILE CHECKSUM: 43e5de16aa2880f5c4d94f68bb48cd0e50916b8c
+PODFILE CHECKSUM: 158d82b2daaf7e48c20f952f7e665ac63731ea80
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.2.0.beta.1

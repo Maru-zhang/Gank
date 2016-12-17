@@ -28,38 +28,68 @@ extension HomeSection: SectionModelType {
     }
 }
 
-class HomeViewModel {
+class HomeViewModel: NSObject {
     
     /// 首页干货
     
-    let section = HomeSection(header: "", items: [Brick()])
+    let section: Driver<[HomeSection]>
     
     let refreshCommand = PublishSubject<Void>()
     
     let dataSource = RxTableViewSectionedReloadDataSource<HomeSection>()
     
+    fileprivate let bricks = Variable<[Brick]>([])
+    
     fileprivate let disposeBag = DisposeBag()
-
     
-    
-    init() {
-    
+    override init() {
         
-        refreshCommand.subscribe { [unowned self] (_) in
-            
-            let provider = RxMoyaProvider<GankAPI>()
-            provider.request(.data(type: .iOS, size: 20, index: 0)).subscribe { event in
-                switch event {
-                case let .next(response):
-                    print(String.init(data: response.data, encoding: .utf8))
-                case let .error(error):
-                    print(error)
-                default:
-                    break
-                }
-            }.addDisposableTo(self.disposeBag)
+        section = bricks.asObservable().map({ (bricks) -> [HomeSection] in
+            return [HomeSection(header: "", items: bricks)]
+        })
+        .asDriver(onErrorJustReturn: [])
+    
+        super.init()
+        
+//        refreshCommand.subscribe { [unowned self] (_) in
+        
+//            let provider = RxMoyaProvider<GankAPI>()
+//            provider.request(.data(type: .iOS, size: 20, index: 0)).subscribe { event in
+//                switch event {
+//                case let .next(response):
+//                    print(String.init(data: response.data, encoding: .utf8))
+//                case let .error(error):
+//                    print(error)
+//                default:
+//                    break
+//                }
+//            }.addDisposableTo(self.rx_disposeBag)
 
-        }.addDisposableTo(disposeBag)
+//        }.addDisposableTo(rx_disposeBag)
+        
+//        refreshCommand.map { (_) -> Observable<Response> in
+//            return RxMoyaProvider<GankAPI>().request(.data(type: .iOS, size: 20, index: 0))
+//        }
+        
+        refreshCommand
+            .flatMap { (_) -> Observable<Response> in
+                print("requesting ======>>>>>>")
+                return RxMoyaProvider<GankAPI>().request(.data(type: .iOS, size: 20, index: 0))
+            }
+//            .subscribe { (event) in
+//                switch event {
+//                case let .next(response):
+//                    print(String.init(data: response.data, encoding: .utf8) ?? "default string")
+//                case let .error(error):
+//                    print(error)
+//                default:
+//                    break
+//            }}
+//            .addDisposableTo(rx_disposeBag)
+            .map { (response) -> Void in
+                print(response)
+        }
+        
     }
     
 

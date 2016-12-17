@@ -33,8 +33,6 @@ final class HomeViewController: UIViewController {
     
     let homeVM = HomeViewModel()
     
-    let disposeBag = DisposeBag()
-
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -66,28 +64,40 @@ extension HomeViewController {
             make.top.equalTo(segement.snp.bottom)
         }
         
-        // Binding
+        // Input
         
-        Observable.just([homeVM.section])
-            .bindTo(tableView.rx.items(dataSource: homeVM.dataSource))
-            .addDisposableTo(disposeBag)
+        refreshControl.rx.controlEvent(.valueChanged)
+            .bindTo(homeVM.refreshCommand)
+            .addDisposableTo(rx_disposeBag)
+        
+        // Output
+
+        homeVM.section
+            .drive(tableView.rx.items(dataSource: homeVM.dataSource))
+            .addDisposableTo(rx_disposeBag)
         
         tableView.rx.setDelegate(self)
-            .addDisposableTo(disposeBag)
+            .addDisposableTo(rx_disposeBag)
+        
+        homeVM.refreshCommand.subscribe { [unowned self] (event) in
+            print("dsadsadsa")
+            switch event {
+            case let .next(response):
+                print(response)
+//                print(String.init(data: response.data, encoding: .utf8) ?? "default string")
+            case let .error(error):
+                print(error)
+            default:
+                break
+            }
+            self.refreshControl.endRefreshing()
+        }.addDisposableTo(rx_disposeBag)
         
         // Configure
         
         homeVM.dataSource.configureCell = { ds, tv, ip, item in
             let cell = tv.dequeueReusableCell(for: ip, cellType: HomeTableViewCell.self)
             return cell
-        }
-        
-        let _ = refreshControl.rx.refreshing
-        
-        let provider = RxMoyaProvider<GankAPI>()
-        provider.request(.data(type: .iOS, size: 20, index: 0)).map { (res) -> () in
-            debugPrint(res)
-            return ()
         }
         
     }
