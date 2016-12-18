@@ -52,7 +52,7 @@ class HomeViewModel: NSObject {
         super.init()
         
 //        refreshCommand.subscribe { [unowned self] (_) in
-        
+//        
 //            let provider = RxMoyaProvider<GankAPI>()
 //            provider.request(.data(type: .iOS, size: 20, index: 0)).subscribe { event in
 //                switch event {
@@ -64,7 +64,7 @@ class HomeViewModel: NSObject {
 //                    break
 //                }
 //            }.addDisposableTo(self.rx_disposeBag)
-
+//
 //        }.addDisposableTo(rx_disposeBag)
         
 //        refreshCommand.map { (_) -> Observable<Response> in
@@ -72,25 +72,23 @@ class HomeViewModel: NSObject {
 //        }
         
         refreshCommand
-            .flatMap { (_) -> Observable<Response> in
-                print("requesting ======>>>>>>")
-                return RxMoyaProvider<GankAPI>().request(.data(type: .iOS, size: 20, index: 0))
-            }
-//            .subscribe { (event) in
-//                switch event {
-//                case let .next(response):
-//                    print(String.init(data: response.data, encoding: .utf8) ?? "default string")
-//                case let .error(error):
-//                    print(error)
-//                default:
-//                    break
-//            }}
-//            .addDisposableTo(rx_disposeBag)
-            .map { (response) -> Void in
-                print(response)
+            .flatMapLatest { (_) -> Observable<Response> in
+                return gankApi.request(.data(type: .iOS, size: 20, index: 0))
         }
+            .subscribe(onNext: { (_) in
+                print("NEXT")
+            }, onError: { (_) in
+                print("error")
+            }, onCompleted: { 
+                print("completed")
+            }) { 
+                print("dispose")
+        }
+            .addDisposableTo(rx_disposeBag)
+        
         
     }
     
-
 }
+
+

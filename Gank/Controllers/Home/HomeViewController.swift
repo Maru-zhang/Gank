@@ -80,10 +80,10 @@ extension HomeViewController {
             .addDisposableTo(rx_disposeBag)
         
         homeVM.refreshCommand.subscribe { [unowned self] (event) in
-            print("dsadsadsa")
+            print("viewcontroller handle ==== >>>")
             switch event {
             case let .next(response):
-                print(response)
+                print("response:\(response)")
 //                print(String.init(data: response.data, encoding: .utf8) ?? "default string")
             case let .error(error):
                 print(error)

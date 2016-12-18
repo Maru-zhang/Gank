@@ -9,6 +9,8 @@
 import Foundation
 import Moya
 
+let gankApi = RxMoyaProvider<GankAPI>()
+
 enum GankAPI {
     
     enum GankCategory: String {
