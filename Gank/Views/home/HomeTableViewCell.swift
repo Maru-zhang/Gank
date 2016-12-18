@@ -11,11 +11,14 @@ import Reusable
 
 final class HomeTableViewCell: UITableViewCell,NibReusable {
     
+    @IBOutlet weak var gankTitle: UILabel!
+    @IBOutlet weak var gankImage: UIImageView!
+    @IBOutlet weak var gankAuthor: UILabel!
+    
     static let height: CGFloat = 100.0
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-//        HomeTableViewCell.loadFromNib(owner: self)
     }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {

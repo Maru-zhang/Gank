@@ -9,8 +9,6 @@
 import Foundation
 import Moya
 
-let gankApi = RxMoyaProvider<GankAPI>()
-
 enum GankAPI {
     
     enum GankCategory: String {
@@ -27,8 +25,6 @@ enum GankAPI {
     
     case data(type: GankCategory,size: Int64,index: Int64)
 }
-
-
 
 extension GankAPI: TargetType {
     
@@ -63,6 +59,8 @@ extension GankAPI: TargetType {
         }
     }
 }
+
+let gankApi = RxMoyaProvider<GankAPI>()
 
 // MARK: - Helpers
 

@@ -6,22 +6,17 @@ PODS:
   - EZSwiftExtensions (1.7)
   - HMSegmentedControl (1.5.3)
   - Kingfisher (3.1.4)
-  - Moya (8.0.0-beta.4):
-    - Moya/Core (= 8.0.0-beta.4)
-  - Moya-ObjectMapper (2.2):
-    - Moya-ObjectMapper/Core (= 2.2)
-  - Moya-ObjectMapper/Core (2.2):
-    - Moya (>= 8.0.0-beta.4)
-    - ObjectMapper (= 2.2.1)
-  - Moya/Core (8.0.0-beta.4):
+  - Moya (8.0.0-beta.5):
+    - Moya/Core (= 8.0.0-beta.5)
+  - Moya/Core (8.0.0-beta.5):
     - Alamofire (~> 4.0)
     - Result (~> 3.0)
-  - Moya/RxSwift (8.0.0-beta.4):
+  - Moya/RxSwift (8.0.0-beta.5):
     - Moya/Core
     - RxSwift (~> 3.0)
-  - ObjectMapper (2.2.1)
+  - ObjectMapper (2.2.2)
   - PullToRefresher (2.0.2)
-  - Result (3.0.0)
+  - Result (3.1.0)
   - Reusable (3.0.0):
     - Reusable/Storyboard (= 3.0.0)
     - Reusable/View (= 3.0.0)
@@ -45,24 +40,16 @@ DEPENDENCIES:
   - EZSwiftExtensions
   - HMSegmentedControl
   - Kingfisher (~> 3.1.4)
-  - Moya-ObjectMapper (from `https://github.com/ivanbruel/Moya-ObjectMapper`)
+  - Moya (~> 8.0.0-beta.5)
   - Moya/RxSwift
+  - ObjectMapper
   - PullToRefresher (~> 2.0)
-  - Reusable (~> 3.0.0)
+  - Reusable (= 3.0.0)
   - RxDataSources (~> 1.0)
   - RxOptional
   - RxSwift
   - SnapKit (~> 3.0.2)
   - Then (~> 2.1)
-
-EXTERNAL SOURCES:
-  Moya-ObjectMapper:
-    :git: https://github.com/ivanbruel/Moya-ObjectMapper
-
-CHECKOUT OPTIONS:
-  Moya-ObjectMapper:
-    :commit: 355491378ad81a1b38b71789892f59c1385baf91
-    :git: https://github.com/ivanbruel/Moya-ObjectMapper
 
 SPEC CHECKSUMS:
   Action: b02569f7169ae825e71d5a41ef727719ca5cc840
@@ -70,11 +57,10 @@ SPEC CHECKSUMS:
   EZSwiftExtensions: 4afef248066a036903d8496bf07bc355b22ce766
   HMSegmentedControl: 7c6145afb50f26cec5f3243082f6f12b9f41318f
   Kingfisher: 6c67e3e57f2d81a9cfdfa25052cd86f33ceac9bb
-  Moya: bad6f72ec40661f09a8cd85ab470226d2795a485
-  Moya-ObjectMapper: c1ebefeea9df76bab2982c8809f0675a5b2528b1
-  ObjectMapper: 41e43e1a89f8060ef5ea5d04ba852e269a621d68
+  Moya: a3bbabe1e21a96066199a2dad874db1949510214
+  ObjectMapper: 9e385c2295bcc4e16eabbcfc85db801442bba545
   PullToRefresher: 5e101a8c3523e67ee0291375ba932ef59e0853c2
-  Result: 1b3e431f37cbcd3ad89c6aa9ab0ae55515fae3b6
+  Result: 4e3ed5995ed94d0cd6a09be9a431fce3f3624bbf
   Reusable: ab77c4c51a4b9606946df70e30cb8ad9cf75c226
   RxCocoa: 15a52fc590dcc700cb4a690a633b5c5184ce3a78
   RxDataSources: 824693e84d00781d0a5e5cedc1ff95ce9250aacd
@@ -83,6 +69,6 @@ SPEC CHECKSUMS:
   SnapKit: 2e456761aa92d4d4067a7a5594c18769d451a8ad
   Then: 8496793c8fcac95482b943909b440724c7d8d82c
 
-PODFILE CHECKSUM: 158d82b2daaf7e48c20f952f7e665ac63731ea80
+PODFILE CHECKSUM: 490bddadb67323ac8ff70c07cd0fd8073fd3fc36
 
 COCOAPODS: 1.2.0.beta.1

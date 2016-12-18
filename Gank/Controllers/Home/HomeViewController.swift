@@ -38,7 +38,7 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupUI()
+        setup()
     }
 }
 
@@ -46,60 +46,68 @@ extension HomeViewController {
     
     // MARK: - Private Method
     
-    fileprivate func setupUI() {
+    fileprivate func setup() {
         
-        tableView.refreshControl = refreshControl
-
-        view.addSubview(segement)
-        view.addSubview(tableView)
-
-        segement.snp.makeConstraints { (make) in
-            make.top.equalTo(view.snp.top).offset(20)
-            make.left.right.equalTo(view)
-            make.height.equalTo(50)
-        }
-
-        tableView.snp.makeConstraints { (make) in
-            make.left.right.bottom.equalTo(view)
-            make.top.equalTo(segement.snp.bottom)
-        }
-        
-        // Input
-        
-        refreshControl.rx.controlEvent(.valueChanged)
-            .bindTo(homeVM.refreshCommand)
-            .addDisposableTo(rx_disposeBag)
-        
-        // Output
-
-        homeVM.section
-            .drive(tableView.rx.items(dataSource: homeVM.dataSource))
-            .addDisposableTo(rx_disposeBag)
-        
-        tableView.rx.setDelegate(self)
-            .addDisposableTo(rx_disposeBag)
-        
-        homeVM.refreshCommand.subscribe { [unowned self] (event) in
-            print("viewcontroller handle ==== >>>")
-            switch event {
-            case let .next(response):
-                print("response:\(response)")
-//                print(String.init(data: response.data, encoding: .utf8) ?? "default string")
-            case let .error(error):
-                print(error)
-            default:
-                break
+        // UI Config
+        do {
+                        
+            tableView.refreshControl = refreshControl
+                        
+            view.addSubview(segement)
+            view.addSubview(tableView)
+            
+            segement.snp.makeConstraints { (make) in
+                make.top.equalTo(view.snp.top).offset(20)
+                make.left.right.equalTo(view)
+                make.height.equalTo(50)
             }
-            self.refreshControl.endRefreshing()
-        }.addDisposableTo(rx_disposeBag)
-        
-        // Configure
-        
-        homeVM.dataSource.configureCell = { ds, tv, ip, item in
-            let cell = tv.dequeueReusableCell(for: ip, cellType: HomeTableViewCell.self)
-            return cell
+            
+            tableView.snp.makeConstraints { (make) in
+                make.left.right.bottom.equalTo(view)
+                make.top.equalTo(segement.snp.bottom)
+            }
+            
+            tableView.delegate = self
+            tableView.dataSource = self
         }
         
+        // Rx Config
+        do {
+        
+            // Input
+            
+            refreshControl.rx.controlEvent(.valueChanged)
+                .bindTo(homeVM.refreshCommand)
+                .addDisposableTo(rx_disposeBag)
+            
+            // Output
+            
+//            homeVM.section
+//                .drive(tableView.rx.items(dataSource: homeVM.dataSource))
+//                .addDisposableTo(rx_disposeBag)
+//            
+//            tableView.rx.setDelegate(self)
+//                .addDisposableTo(rx_disposeBag)
+            
+            homeVM.refreshTrigger
+                .observeOn(MainScheduler.instance)
+                .subscribe { [weak self] (event) in
+                    print("end refresh")
+                    self?.tableView.reloadData()
+                    self?.refreshControl.endRefreshing()
+                }
+                .addDisposableTo(rx_disposeBag)
+            
+            // Configure
+            
+            homeVM.dataSource.configureCell = { dataSource, tableView, indexPath, item in
+                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: HomeTableViewCell.self)
+                cell.gankTitle.text = item.desc
+                return cell
+            }
+        }
+        
+//        tableView.refreshControl?.beginRefreshing()
     }
     
 }
@@ -108,15 +116,24 @@ extension HomeViewController {
     
     // MARK: - Private Methpd
     
-    fileprivate func refreshAction() {
-        
-    }
 }
 
-extension HomeViewController: UITableViewDelegate {
+extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return HomeTableViewCell.height
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 20
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return tableView.dequeueReusableCell(for: indexPath, cellType: HomeTableViewCell.self)
     }
 
 }

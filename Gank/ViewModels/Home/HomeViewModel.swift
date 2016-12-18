@@ -36,6 +36,8 @@ class HomeViewModel: NSObject {
     
     let refreshCommand = PublishSubject<Void>()
     
+    let refreshTrigger = PublishSubject<Void>()
+    
     let dataSource = RxTableViewSectionedReloadDataSource<HomeSection>()
     
     fileprivate let bricks = Variable<[Brick]>([])
@@ -51,39 +53,28 @@ class HomeViewModel: NSObject {
     
         super.init()
         
-//        refreshCommand.subscribe { [unowned self] (_) in
-//        
-//            let provider = RxMoyaProvider<GankAPI>()
-//            provider.request(.data(type: .iOS, size: 20, index: 0)).subscribe { event in
-//                switch event {
-//                case let .next(response):
-//                    print(String.init(data: response.data, encoding: .utf8))
-//                case let .error(error):
-//                    print(error)
-//                default:
-//                    break
-//                }
-//            }.addDisposableTo(self.rx_disposeBag)
-//
-//        }.addDisposableTo(rx_disposeBag)
-        
-//        refreshCommand.map { (_) -> Observable<Response> in
-//            return RxMoyaProvider<GankAPI>().request(.data(type: .iOS, size: 20, index: 0))
-//        }
-        
         refreshCommand
-            .flatMapLatest { (_) -> Observable<Response> in
-                return gankApi.request(.data(type: .iOS, size: 20, index: 0))
-        }
-            .subscribe(onNext: { (_) in
-                print("NEXT")
-            }, onError: { (_) in
-                print("error")
-            }, onCompleted: { 
-                print("completed")
-            }) { 
-                print("dispose")
-        }
+            .flatMapLatest { gankApi.request(.data(type: .Android, size: 20, index: 0)) }
+            .subscribe({ [weak self] (event) in
+                print("got data");
+                self?.refreshTrigger.onNext()
+                switch event {
+                case let .next(response):
+                    print(String.init(data: response.data, encoding: .utf8) ?? "default string")
+                    do {
+                        let data = try response.mapArray(Brick.self)
+                        self?.bricks.value = data
+                        print("mapper result:\(data)")
+                    }catch {
+                        self?.bricks.value = []
+                    }
+                    break
+                case let .error(_):
+                    break
+                default:
+                    break
+                }
+            })
             .addDisposableTo(rx_disposeBag)
         
         

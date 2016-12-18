@@ -16,6 +16,7 @@
 		AFA7EC751DEEDEDC00138AEE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFA7EC741DEEDEDC00138AEE /* Assets.xcassets */; };
 		AFA7EC781DEEDEDC00138AEE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFA7EC761DEEDEDC00138AEE /* LaunchScreen.storyboard */; };
 		AFBBA5CA1E05320A003605D1 /* NSObject+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBBA5C91E05320A003605D1 /* NSObject+Rx.swift */; };
+		AFBBA5CD1E06F783003605D1 /* Response+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBBA5CC1E06F783003605D1 /* Response+ObjectMapper.swift */; };
 		AFBDB2621DF58F23003E8EE2 /* GankAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBDB2611DF58F23003E8EE2 /* GankAPI.swift */; };
 		AFCB661E1DF844DB00916E1B /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCB661D1DF844DB00916E1B /* HomeViewModel.swift */; };
 		F2322ED0BDDB5547F4A1D973 /* Pods_Gank.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECF6CC27851F092E4B160AF6 /* Pods_Gank.framework */; };
@@ -36,6 +37,7 @@
 		AFA7EC791DEEDEDC00138AEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AFA7EC831DEF4D5900138AEE /* Gank-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Gank-Bridging-Header.h"; sourceTree = "<group>"; };
 		AFBBA5C91E05320A003605D1 /* NSObject+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Rx.swift"; sourceTree = "<group>"; };
+		AFBBA5CC1E06F783003605D1 /* Response+ObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Response+ObjectMapper.swift"; sourceTree = "<group>"; };
 		AFBDB2611DF58F23003E8EE2 /* GankAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GankAPI.swift; sourceTree = "<group>"; };
 		AFCB661D1DF844DB00916E1B /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		ECF6CC27851F092E4B160AF6 /* Pods_Gank.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Gank.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,6 +126,7 @@
 		AFA7EC6C1DEEDEDC00138AEE /* Gank */ = {
 			isa = PBXGroup;
 			children = (
+				AFBBA5CB1E06F76C003605D1 /* Extensions */,
 				AFBBA5C71E0531C2003605D1 /* Vendors */,
 				AFCB661B1DF844B100916E1B /* ViewModels */,
 				AFBDB25F1DF58ED9003E8EE2 /* Services */,
@@ -170,6 +173,14 @@
 				AFBBA5C91E05320A003605D1 /* NSObject+Rx.swift */,
 			);
 			path = "NSObject+Rx";
+			sourceTree = "<group>";
+		};
+		AFBBA5CB1E06F76C003605D1 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				AFBBA5CC1E06F783003605D1 /* Response+ObjectMapper.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		AFBDB25F1DF58ED9003E8EE2 /* Services */ = {
@@ -342,6 +353,7 @@
 				AFCB661E1DF844DB00916E1B /* HomeViewModel.swift in Sources */,
 				AFA7EC6E1DEEDEDC00138AEE /* AppDelegate.swift in Sources */,
 				AF9F0FD11DF1A6CD00FF8EC5 /* Brick.swift in Sources */,
+				AFBBA5CD1E06F783003605D1 /* Response+ObjectMapper.swift in Sources */,
 				AF9F0FD91DF1A9E900FF8EC5 /* HomeTableViewCell.swift in Sources */,
 				AF9F0FD41DF1A91300FF8EC5 /* HomeViewController.swift in Sources */,
 				AFBBA5CA1E05320A003605D1 /* NSObject+Rx.swift in Sources */,
@@ -468,6 +480,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 678WD436L9;
 				INFOPLIST_FILE = Gank/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = alloc.studio.Gank;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -483,6 +496,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 678WD436L9;
 				INFOPLIST_FILE = Gank/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = alloc.studio.Gank;
 				PRODUCT_NAME = "$(TARGET_NAME)";

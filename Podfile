@@ -3,10 +3,11 @@ platform :ios, '9.0'
 use_frameworks!
 
 def shared_pods
-	pod 'Moya/RxSwift'
-	pod 'RxSwift'
+    pod 'Moya', '~> 8.0.0-beta.5'
+    pod 'Moya/RxSwift'
+    pod 'RxSwift'
 	pod 'RxDataSources', '~> 1.0'
-	pod 'Reusable', '~> 3.0.0'
+	pod 'Reusable', '3.0.0'
 	pod 'Kingfisher', '~> 3.1.4'
 	pod 'Alamofire', '~> 4.0.1'
     pod 'Then', '~> 2.1'
@@ -16,7 +17,7 @@ def shared_pods
     pod 'PullToRefresher', '~> 2.0'
     pod 'Action'
     pod 'RxOptional'
-    pod 'Moya-ObjectMapper', :git => 'https://github.com/ivanbruel/Moya-ObjectMapper'
+    pod 'ObjectMapper'
 end
 
 target :'Gank' do
