@@ -11,13 +11,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeTableViewCell" customModule="Gank" customModuleProvider="target">
-            <connections>
-                <outlet property="gankAuthor" destination="YK2-J6-y0U" id="ncM-Jh-QYr"/>
-                <outlet property="gankImage" destination="0d2-2m-AGJ" id="T3k-sP-n6W"/>
-                <outlet property="gankTitle" destination="pT7-Ha-nEh" id="Ykz-XP-CJD"/>
-            </connections>
-        </placeholder>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeTableViewCell" customModule="Gank" customModuleProvider="target"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="87" id="KGk-i7-Jjw" customClass="HomeTableViewCell" customModule="Gank" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="332" height="100"/>
@@ -33,9 +27,12 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Desc" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pT7-Ha-nEh">
-                        <rect key="frame" x="104" y="8" width="220" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
+                        <rect key="frame" x="104" y="8" width="220" height="66"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="66" id="TDQ-it-GH4"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YK2-J6-y0U">
@@ -56,6 +53,11 @@
                     <constraint firstItem="0d2-2m-AGJ" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="szK-Uj-WGW"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="gankAuthor" destination="YK2-J6-y0U" id="4ha-Ha-rAw"/>
+                <outlet property="gankImage" destination="0d2-2m-AGJ" id="kgB-yS-Zzq"/>
+                <outlet property="gankTitle" destination="pT7-Ha-nEh" id="lLn-8n-hsC"/>
+            </connections>
             <point key="canvasLocation" x="31" y="73"/>
         </tableViewCell>
     </objects>

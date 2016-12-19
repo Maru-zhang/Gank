@@ -60,11 +60,9 @@ class HomeViewModel: NSObject {
                 self?.refreshTrigger.onNext()
                 switch event {
                 case let .next(response):
-                    print(String.init(data: response.data, encoding: .utf8) ?? "default string")
                     do {
                         let data = try response.mapArray(Brick.self)
                         self?.bricks.value = data
-                        print("mapper result:\(data)")
                     }catch {
                         self?.bricks.value = []
                     }

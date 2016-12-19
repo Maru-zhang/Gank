@@ -14,8 +14,7 @@ import SnapKit
 import Reusable
 import RxSwift
 import RxCocoa
-import Moya
-import ObjectMapper
+import Kingfisher
 
 final class HomeViewController: UIViewController {
     
@@ -67,8 +66,6 @@ extension HomeViewController {
                 make.top.equalTo(segement.snp.bottom)
             }
             
-            tableView.delegate = self
-            tableView.dataSource = self
         }
         
         // Rx Config
@@ -82,12 +79,12 @@ extension HomeViewController {
             
             // Output
             
-//            homeVM.section
-//                .drive(tableView.rx.items(dataSource: homeVM.dataSource))
-//                .addDisposableTo(rx_disposeBag)
-//            
-//            tableView.rx.setDelegate(self)
-//                .addDisposableTo(rx_disposeBag)
+            homeVM.section
+                .drive(tableView.rx.items(dataSource: homeVM.dataSource))
+                .addDisposableTo(rx_disposeBag)
+            
+            tableView.rx.setDelegate(self)
+                .addDisposableTo(rx_disposeBag)
             
             homeVM.refreshTrigger
                 .observeOn(MainScheduler.instance)
@@ -102,12 +99,17 @@ extension HomeViewController {
             
             homeVM.dataSource.configureCell = { dataSource, tableView, indexPath, item in
                 let cell = tableView.dequeueReusableCell(for: indexPath, cellType: HomeTableViewCell.self)
-                cell.gankTitle.text = item.desc
+                cell.gankTitle?.text = item.desc
+                if item.images.count > 0 {
+                    cell.gankImage?.kf.setImage(with: URL(string: item.images.first!))
+                }
+                cell.gankAuthor.text = item.who
                 return cell
             }
         }
         
-//        tableView.refreshControl?.beginRefreshing()
+        tableView.refreshControl?.beginRefreshing()
+        homeVM.refreshCommand.onNext()
     }
     
 }
@@ -118,22 +120,9 @@ extension HomeViewController {
     
 }
 
-extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+extension HomeViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return HomeTableViewCell.height
     }
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return UIView()
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return tableView.dequeueReusableCell(for: indexPath, cellType: HomeTableViewCell.self)
-    }
-
 }
