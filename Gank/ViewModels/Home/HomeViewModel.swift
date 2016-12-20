@@ -14,7 +14,6 @@ import Moya
 
 struct HomeSection {
     
-    var header: String
     var items: [Item]
 }
 
@@ -34,7 +33,7 @@ class HomeViewModel: NSObject {
     
     let section: Driver<[HomeSection]>
     
-    let refreshCommand = PublishSubject<Void>()
+    let refreshCommand = PublishSubject<Int>()
     
     let refreshTrigger = PublishSubject<Void>()
     
@@ -47,14 +46,14 @@ class HomeViewModel: NSObject {
     override init() {
         
         section = bricks.asObservable().map({ (bricks) -> [HomeSection] in
-            return [HomeSection(header: "", items: bricks)]
+            return [HomeSection(items: bricks)]
         })
         .asDriver(onErrorJustReturn: [])
     
         super.init()
         
         refreshCommand
-            .flatMapLatest { gankApi.request(.data(type: .Android, size: 20, index: 0)) }
+            .flatMapLatest { gankApi.request(.data(type: GankAPI.GankCategory.mapCategory(with: $0), size: 20, index: 0)) }
             .subscribe({ [weak self] (event) in
                 print("got data");
                 self?.refreshTrigger.onNext()

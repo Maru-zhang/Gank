@@ -12,6 +12,7 @@ import Moya
 enum GankAPI {
     
     enum GankCategory: String {
+        
         case All      = "all"
         case Android  = "Android"
         case iOS      = "iOS"
@@ -21,6 +22,31 @@ enum GankAPI {
         case FrontEnd = "前端"
         case Mass     = "瞎推荐"
         case APP      = "App"
+        
+        static func mapCategory(with hashValue: Int) -> GankCategory {
+            switch hashValue {
+            case 0:
+                return .All
+            case 1:
+                return .Android
+            case 2:
+                return .iOS
+            case 3:
+                return .Video
+            case 4:
+                return .Welfare
+            case 5:
+                return .Resource
+            case 6:
+                return .FrontEnd
+            case 7:
+                return .Mass
+            case 8:
+                return .APP
+            default:
+                return .All
+            }
+        }
     }
     
     case data(type: GankCategory,size: Int64,index: Int64)

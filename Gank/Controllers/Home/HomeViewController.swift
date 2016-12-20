@@ -39,6 +39,10 @@ final class HomeViewController: UIViewController {
         
         setup()
     }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
 }
 
 extension HomeViewController {
@@ -47,8 +51,7 @@ extension HomeViewController {
     
     fileprivate func setup() {
         
-        // UI Config
-        do {
+        do /** UI Config */ {
                         
             tableView.refreshControl = refreshControl
                         
@@ -66,14 +69,20 @@ extension HomeViewController {
                 make.top.equalTo(segement.snp.bottom)
             }
             
+            segement.indexChangeBlock = { [unowned self] idx in
+                self.homeVM.refreshCommand.onNext(idx)
+            }
+            
         }
         
-        // Rx Config
-        do {
+        do /** Rx Config */ {
         
             // Input
             
             refreshControl.rx.controlEvent(.valueChanged)
+                .map({ () -> Int in
+                    return self.segement.selectedSegmentIndex
+                })
                 .bindTo(homeVM.refreshCommand)
                 .addDisposableTo(rx_disposeBag)
             
@@ -109,7 +118,7 @@ extension HomeViewController {
         }
         
         tableView.refreshControl?.beginRefreshing()
-        homeVM.refreshCommand.onNext()
+        homeVM.refreshCommand.onNext(0)
     }
     
 }
@@ -124,5 +133,9 @@ extension HomeViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return HomeTableViewCell.height
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
