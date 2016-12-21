@@ -14,6 +14,7 @@ PODS:
   - Moya/RxSwift (8.0.0-beta.5):
     - Moya/Core
     - RxSwift (~> 3.0)
+  - NoticeBar (0.1.4)
   - ObjectMapper (2.2.2)
   - PullToRefresher (2.0.2)
   - Result (3.1.0)
@@ -32,6 +33,7 @@ PODS:
     - RxSwift
   - RxSwift (3.0.1)
   - SnapKit (3.0.2)
+  - SwiftWebVC (0.2.1)
   - Then (2.1.0)
 
 DEPENDENCIES:
@@ -42,6 +44,7 @@ DEPENDENCIES:
   - Kingfisher (~> 3.1.4)
   - Moya (~> 8.0.0-beta.5)
   - Moya/RxSwift
+  - NoticeBar
   - ObjectMapper
   - PullToRefresher (~> 2.0)
   - Reusable (= 3.0.0)
@@ -49,6 +52,7 @@ DEPENDENCIES:
   - RxOptional
   - RxSwift
   - SnapKit (~> 3.0.2)
+  - SwiftWebVC
   - Then (~> 2.1)
 
 SPEC CHECKSUMS:
@@ -58,6 +62,7 @@ SPEC CHECKSUMS:
   HMSegmentedControl: 7c6145afb50f26cec5f3243082f6f12b9f41318f
   Kingfisher: 6c67e3e57f2d81a9cfdfa25052cd86f33ceac9bb
   Moya: a3bbabe1e21a96066199a2dad874db1949510214
+  NoticeBar: a92f262a2194c2acd3ceb91bd48a86b3c01ea72a
   ObjectMapper: 9e385c2295bcc4e16eabbcfc85db801442bba545
   PullToRefresher: 5e101a8c3523e67ee0291375ba932ef59e0853c2
   Result: 4e3ed5995ed94d0cd6a09be9a431fce3f3624bbf
@@ -67,8 +72,9 @@ SPEC CHECKSUMS:
   RxOptional: b97b59183af80d1e729ac9e51d09a10be668d6a8
   RxSwift: af5680055c4ad04480189c52d28385b1029493a6
   SnapKit: 2e456761aa92d4d4067a7a5594c18769d451a8ad
+  SwiftWebVC: 63c8ccff38ee865661bf6f0c63fbcf75fbc878f4
   Then: 8496793c8fcac95482b943909b440724c7d8d82c
 
-PODFILE CHECKSUM: 490bddadb67323ac8ff70c07cd0fd8073fd3fc36
+PODFILE CHECKSUM: 8c3b19d9745f8e9372c53b72631d79e87a3ae259
 
 COCOAPODS: 1.2.0.beta.1

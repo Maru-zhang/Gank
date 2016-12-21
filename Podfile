@@ -18,6 +18,8 @@ def shared_pods
     pod 'Action'
     pod 'RxOptional'
     pod 'ObjectMapper'
+    pod 'NoticeBar'
+    pod 'SwiftWebVC'
 end
 
 target :'Gank' do

@@ -51,8 +51,14 @@ extension AppDelegate {
     fileprivate func setupConfig() {
         
         do /** KingFisher Config */ {
-            ImageCache.`default`.maxMemoryCost = 0
-            ImageCache.`default`.maxDiskCacheSize = 0
+            ImageCache.`default`.maxMemoryCost = UInt(30 * 1024 * 1024)
+        }
+        
+        do /** Navgation Config */ {
+            UINavigationBar.appearance().tintColor = Config.UI.titleColor
+            UINavigationBar.appearance().isTranslucent = false
+            UINavigationBar.appearance().barTintColor = Config.UI.themeColor
+            UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: Config.UI.titleColor]
         }
     }
 }

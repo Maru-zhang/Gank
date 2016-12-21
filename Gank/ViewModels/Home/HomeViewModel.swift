@@ -41,8 +41,6 @@ class HomeViewModel: NSObject {
     
     fileprivate let bricks = Variable<[Brick]>([])
     
-    fileprivate let disposeBag = DisposeBag()
-    
     override init() {
         
         section = bricks.asObservable().map({ (bricks) -> [HomeSection] in
@@ -55,7 +53,6 @@ class HomeViewModel: NSObject {
         refreshCommand
             .flatMapLatest { gankApi.request(.data(type: GankAPI.GankCategory.mapCategory(with: $0), size: 20, index: 0)) }
             .subscribe({ [weak self] (event) in
-                print("got data");
                 self?.refreshTrigger.onNext()
                 switch event {
                 case let .next(response):
@@ -66,7 +63,8 @@ class HomeViewModel: NSObject {
                         self?.bricks.value = []
                     }
                     break
-                case let .error(_):
+                case let .error(error):
+                    self?.refreshTrigger.onError(error);
                     break
                 default:
                     break

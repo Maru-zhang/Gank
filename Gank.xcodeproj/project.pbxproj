@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF3C0C221E0AA003002644DD /* BrowserWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3C0C211E0AA003002644DD /* BrowserWebViewController.swift */; };
+		AF3C0C241E0AA851002644DD /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3C0C231E0AA851002644DD /* Config.swift */; };
 		AF9F0FD11DF1A6CD00FF8EC5 /* Brick.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9F0FD01DF1A6CD00FF8EC5 /* Brick.swift */; };
 		AF9F0FD41DF1A91300FF8EC5 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9F0FD31DF1A91300FF8EC5 /* HomeViewController.swift */; };
 		AF9F0FD91DF1A9E900FF8EC5 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9F0FD71DF1A9E900FF8EC5 /* HomeTableViewCell.swift */; };
@@ -25,6 +27,8 @@
 /* Begin PBXFileReference section */
 		8549F4BE32D5A4600A90FD47 /* Pods-Gank.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gank.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Gank/Pods-Gank.debug.xcconfig"; sourceTree = "<group>"; };
 		8D471DB23A1F471D67A6B0EE /* Pods-Gank.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gank.release.xcconfig"; path = "Pods/Target Support Files/Pods-Gank/Pods-Gank.release.xcconfig"; sourceTree = "<group>"; };
+		AF3C0C211E0AA003002644DD /* BrowserWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserWebViewController.swift; sourceTree = "<group>"; };
+		AF3C0C231E0AA851002644DD /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		AF9F0FD01DF1A6CD00FF8EC5 /* Brick.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brick.swift; sourceTree = "<group>"; };
 		AF9F0FD31DF1A91300FF8EC5 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		AF9F0FD71DF1A9E900FF8EC5 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
@@ -61,6 +65,14 @@
 				ECF6CC27851F092E4B160AF6 /* Pods_Gank.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AF3C0C201E0A9FBC002644DD /* Web */ = {
+			isa = PBXGroup;
+			children = (
+				AF3C0C211E0AA003002644DD /* BrowserWebViewController.swift */,
+			);
+			path = Web;
 			sourceTree = "<group>";
 		};
 		AF9F0FCE1DF1A66300FF8EC5 /* Models */ = {
@@ -126,17 +138,17 @@
 		AFA7EC6C1DEEDEDC00138AEE /* Gank */ = {
 			isa = PBXGroup;
 			children = (
-				AFBBA5CB1E06F76C003605D1 /* Extensions */,
-				AFBBA5C71E0531C2003605D1 /* Vendors */,
-				AFCB661B1DF844B100916E1B /* ViewModels */,
-				AFBDB25F1DF58ED9003E8EE2 /* Services */,
 				AFA7EC821DEF4CA600138AEE /* Config */,
-				AF9F0FCE1DF1A66300FF8EC5 /* Models */,
-				AFA7EC7F1DEF4BB400138AEE /* Controllers */,
 				AF9F0FD51DF1A9B300FF8EC5 /* Views */,
+				AF9F0FCE1DF1A66300FF8EC5 /* Models */,
+				AFCB661B1DF844B100916E1B /* ViewModels */,
+				AFA7EC7F1DEF4BB400138AEE /* Controllers */,
+				AFBDB25F1DF58ED9003E8EE2 /* Services */,
+				AFBBA5C71E0531C2003605D1 /* Vendors */,
+				AFBBA5CB1E06F76C003605D1 /* Extensions */,
 				AFA7EC6D1DEEDEDC00138AEE /* AppDelegate.swift */,
-				AFA7EC711DEEDEDC00138AEE /* Main.storyboard */,
 				AFA7EC741DEEDEDC00138AEE /* Assets.xcassets */,
+				AFA7EC711DEEDEDC00138AEE /* Main.storyboard */,
 				AFA7EC761DEEDEDC00138AEE /* LaunchScreen.storyboard */,
 				AFA7EC791DEEDEDC00138AEE /* Info.plist */,
 			);
@@ -146,6 +158,7 @@
 		AFA7EC7F1DEF4BB400138AEE /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				AF3C0C201E0A9FBC002644DD /* Web */,
 				AF9F0FD21DF1A8FA00FF8EC5 /* Home */,
 			);
 			path = Controllers;
@@ -154,6 +167,7 @@
 		AFA7EC821DEF4CA600138AEE /* Config */ = {
 			isa = PBXGroup;
 			children = (
+				AF3C0C231E0AA851002644DD /* Config.swift */,
 				AFA7EC831DEF4D5900138AEE /* Gank-Bridging-Header.h */,
 			);
 			path = Config;
@@ -350,11 +364,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				AFBDB2621DF58F23003E8EE2 /* GankAPI.swift in Sources */,
+				AF3C0C221E0AA003002644DD /* BrowserWebViewController.swift in Sources */,
 				AFCB661E1DF844DB00916E1B /* HomeViewModel.swift in Sources */,
 				AFA7EC6E1DEEDEDC00138AEE /* AppDelegate.swift in Sources */,
 				AF9F0FD11DF1A6CD00FF8EC5 /* Brick.swift in Sources */,
 				AFBBA5CD1E06F783003605D1 /* Response+ObjectMapper.swift in Sources */,
 				AF9F0FD91DF1A9E900FF8EC5 /* HomeTableViewCell.swift in Sources */,
+				AF3C0C241E0AA851002644DD /* Config.swift in Sources */,
 				AF9F0FD41DF1A91300FF8EC5 /* HomeViewController.swift in Sources */,
 				AFBBA5CA1E05320A003605D1 /* NSObject+Rx.swift in Sources */,
 			);

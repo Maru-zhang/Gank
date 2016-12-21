@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftWebVC
 import HMSegmentedControl
 import EZSwiftExtensions
 import Then
@@ -15,11 +16,13 @@ import Reusable
 import RxSwift
 import RxCocoa
 import Kingfisher
+import NoticeBar
 
 final class HomeViewController: UIViewController {
     
     let segement = HMSegmentedControl().then {
         $0.sectionTitles = ["All","Android","iOS","休息视频","福利","拓展资源","前端","瞎推荐","App"]
+        $0.selectionIndicatorColor = Config.UI.themeColor
     }
     
     let tableView = UITableView().then {
@@ -38,6 +41,12 @@ final class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         setup()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        setNeedsStatusBarAppearanceUpdate()
     }
     
     override func didReceiveMemoryWarning() {
@@ -72,7 +81,7 @@ extension HomeViewController {
             segement.indexChangeBlock = { [unowned self] idx in
                 self.homeVM.refreshCommand.onNext(idx)
             }
-            
+                    
         }
         
         do /** Rx Config */ {
@@ -98,9 +107,18 @@ extension HomeViewController {
             homeVM.refreshTrigger
                 .observeOn(MainScheduler.instance)
                 .subscribe { [weak self] (event) in
-                    print("end refresh")
-                    self?.tableView.reloadData()
                     self?.refreshControl.endRefreshing()
+                    switch event {
+                    case .error(_):
+                        NoticeBar(title: "Network Disconnect!", defaultType: .error).show(duration: 2.0, completed: nil)
+                        break
+                    case .next(_):
+                        self?.tableView.reloadData()
+                        break
+                    default:
+                        break
+                    
+                    }
                 }
                 .addDisposableTo(rx_disposeBag)
             
@@ -127,15 +145,25 @@ extension HomeViewController {
     
     // MARK: - Private Methpd
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
 }
 
 extension HomeViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return HomeTableViewCell.height
+        return HomeTableViewCell.height + 200
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let item = homeVM.dataSource.sectionModels[0].items[indexPath.row]
+        let webActivity = BrowserWebViewController(url: URL(string: item.url) ?? URL(string: "")!)
+        navigationController?.pushViewController(webActivity, animated: true)
     }
 }
