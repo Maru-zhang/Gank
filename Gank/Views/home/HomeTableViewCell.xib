@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,48 +19,43 @@
                 <rect key="frame" x="0.0" y="0.0" width="332" height="99"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="button_send" translatesAutoresizingMaskIntoConstraints="NO" id="0d2-2m-AGJ">
-                        <rect key="frame" x="8" y="5" width="88" height="88"/>
-                        <constraints>
-                            <constraint firstAttribute="width" secondItem="0d2-2m-AGJ" secondAttribute="height" multiplier="1:1" id="F2S-Y2-DNX"/>
-                        </constraints>
-                    </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Desc" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pT7-Ha-nEh">
-                        <rect key="frame" x="104" y="8" width="220" height="66"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="66" id="TDQ-it-GH4"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <rect key="frame" x="8" y="8" width="316" height="22"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="09u-Zb-QDy">
+                        <rect key="frame" x="286" y="70" width="38" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YK2-J6-y0U">
-                        <rect key="frame" x="272" y="72" width="52" height="21"/>
+                        <rect key="frame" x="226" y="70" width="52" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="topMargin" secondItem="pT7-Ha-nEh" secondAttribute="top" id="4R0-bv-c4k"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="pT7-Ha-nEh" secondAttribute="trailing" id="AjR-SG-uzl"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="YK2-J6-y0U" secondAttribute="trailing" id="Bkn-zE-6oH"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="YK2-J6-y0U" secondAttribute="bottom" constant="-2" id="HKO-Aw-KYd"/>
-                    <constraint firstAttribute="leadingMargin" secondItem="0d2-2m-AGJ" secondAttribute="leading" id="lOE-Ut-TlM"/>
-                    <constraint firstItem="pT7-Ha-nEh" firstAttribute="leading" secondItem="0d2-2m-AGJ" secondAttribute="trailing" constant="8" id="pXl-t2-GuU"/>
-                    <constraint firstItem="0d2-2m-AGJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-3" id="pYc-lr-Soc"/>
-                    <constraint firstItem="0d2-2m-AGJ" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="szK-Uj-WGW"/>
+                    <constraint firstItem="pT7-Ha-nEh" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="3bp-Gs-5z0"/>
+                    <constraint firstItem="pT7-Ha-nEh" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="IBn-vY-OF3"/>
+                    <constraint firstItem="pT7-Ha-nEh" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="NQo-AA-UEg"/>
+                    <constraint firstItem="09u-Zb-QDy" firstAttribute="leading" secondItem="YK2-J6-y0U" secondAttribute="trailing" constant="8" id="ST2-Gs-bZt"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="09u-Zb-QDy" secondAttribute="bottom" constant="0.5" id="crG-45-wL2"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="YK2-J6-y0U" secondAttribute="bottom" constant="0.5" id="g1i-L6-dKT"/>
+                    <constraint firstItem="YK2-J6-y0U" firstAttribute="top" relation="greaterThanOrEqual" secondItem="pT7-Ha-nEh" secondAttribute="bottom" constant="5" id="pes-Di-tyH"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="09u-Zb-QDy" secondAttribute="trailing" id="uTq-F8-79I"/>
                 </constraints>
             </tableViewCellContentView>
+            <inset key="separatorInset" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
             <connections>
                 <outlet property="gankAuthor" destination="YK2-J6-y0U" id="4ha-Ha-rAw"/>
-                <outlet property="gankImage" destination="0d2-2m-AGJ" id="kgB-yS-Zzq"/>
+                <outlet property="gankTime" destination="09u-Zb-QDy" id="I5o-pf-bqI"/>
                 <outlet property="gankTitle" destination="pT7-Ha-nEh" id="lLn-8n-hsC"/>
             </connections>
             <point key="canvasLocation" x="31" y="73"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="button_send" width="150" height="100"/>
-    </resources>
 </document>

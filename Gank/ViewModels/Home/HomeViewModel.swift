@@ -59,6 +59,7 @@ class HomeViewModel: NSObject {
                     do {
                         let data = try response.mapArray(Brick.self)
                         self?.bricks.value = data
+                        debugPrint(data)
                     }catch {
                         self?.bricks.value = []
                     }
@@ -71,8 +72,7 @@ class HomeViewModel: NSObject {
                 }
             })
             .addDisposableTo(rx_disposeBag)
-        
-        
+
     }
     
 }

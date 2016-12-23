@@ -12,10 +12,10 @@ import Reusable
 final class HomeTableViewCell: UITableViewCell,NibReusable {
     
     @IBOutlet weak var gankTitle: UILabel!
-    @IBOutlet weak var gankImage: UIImageView!
     @IBOutlet weak var gankAuthor: UILabel!
+    @IBOutlet weak var gankTime: UILabel!
 
-    static let height: CGFloat = 100.0
+    static let height: CGFloat = UITableViewAutomaticDimension
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

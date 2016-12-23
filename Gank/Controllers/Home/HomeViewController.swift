@@ -17,6 +17,7 @@ import RxSwift
 import RxCocoa
 import Kingfisher
 import NoticeBar
+import PullToRefresh
 
 final class HomeViewController: UIViewController {
     
@@ -29,9 +30,7 @@ final class HomeViewController: UIViewController {
         $0.register(cellType: HomeTableViewCell.self)
     }
     
-    let refreshControl = UIRefreshControl().then {
-        $0.tintColor = UIColor.lightGray
-    }
+    let refreshControl = PullToRefresh()
     
     let homeVM = HomeViewModel()
     
@@ -62,8 +61,11 @@ extension HomeViewController {
         
         do /** UI Config */ {
                         
-            tableView.refreshControl = refreshControl
-                        
+            tableView.estimatedRowHeight = 100
+            tableView.addPullToRefresh(refreshControl, action: { [unowned self] in
+                self.homeVM.refreshCommand.onNext(self.segement.selectedSegmentIndex)
+            })
+                                    
             view.addSubview(segement)
             view.addSubview(tableView)
             
@@ -78,20 +80,18 @@ extension HomeViewController {
                 make.top.equalTo(segement.snp.bottom)
             }
             
-            segement.indexChangeBlock = { [unowned self] idx in
-                self.homeVM.refreshCommand.onNext(idx)
-            }
-                    
         }
         
         do /** Rx Config */ {
         
             // Input
-            
-            refreshControl.rx.controlEvent(.valueChanged)
-                .map({ () -> Int in
-                    return self.segement.selectedSegmentIndex
-                })
+
+            segement.rx.controlEvent(.valueChanged)
+                .map({ self.segement.selectedSegmentIndex })
+                .observeOn(MainScheduler.instance)
+                .do(onNext: { (idx) in
+                    self.tableView.startRefreshing(at: .top)
+                }, onError: nil, onCompleted: nil, onSubscribe:nil,onDispose: nil)
                 .bindTo(homeVM.refreshCommand)
                 .addDisposableTo(rx_disposeBag)
             
@@ -106,18 +106,17 @@ extension HomeViewController {
             
             homeVM.refreshTrigger
                 .observeOn(MainScheduler.instance)
-                .subscribe { [weak self] (event) in
-                    self?.refreshControl.endRefreshing()
+                .subscribe { [unowned self] (event) in
+                    self.tableView.endRefreshing(at: .top)
                     switch event {
                     case .error(_):
                         NoticeBar(title: "Network Disconnect!", defaultType: .error).show(duration: 2.0, completed: nil)
                         break
                     case .next(_):
-                        self?.tableView.reloadData()
+                        self.tableView.reloadData()
                         break
                     default:
                         break
-                    
                     }
                 }
                 .addDisposableTo(rx_disposeBag)
@@ -127,16 +126,14 @@ extension HomeViewController {
             homeVM.dataSource.configureCell = { dataSource, tableView, indexPath, item in
                 let cell = tableView.dequeueReusableCell(for: indexPath, cellType: HomeTableViewCell.self)
                 cell.gankTitle?.text = item.desc
-                if item.images.count > 0 {
-                    cell.gankImage?.kf.setImage(with: URL(string: item.images.first!))
-                }
                 cell.gankAuthor.text = item.who
+                cell.gankTime.text = item.publishedAt.toString(format: "YYYY/MM/DD")
                 return cell
             }
         }
         
-        tableView.refreshControl?.beginRefreshing()
-        homeVM.refreshCommand.onNext(0)
+        self.tableView.startRefreshing(at: .top)
+
     }
     
 }
@@ -153,7 +150,7 @@ extension HomeViewController {
 extension HomeViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return HomeTableViewCell.height + 200
+        return HomeTableViewCell.height
     }
     
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

@@ -12,9 +12,9 @@ import ObjectMapper
 struct Brick: Equatable,Mappable {
     
     var _id: String         = ""
-    var createdAt: String   = ""
+    var createdAt: Date     = Date()
     var desc: String        = ""
-    var publishedAt: String = ""
+    var publishedAt: Date   = Date()
     var source: String      = ""
     var type: String        = ""
     var url: String         = ""

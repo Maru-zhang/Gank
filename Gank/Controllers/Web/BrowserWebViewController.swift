@@ -17,9 +17,7 @@ final class BrowserWebViewController: UIViewController {
     var webURL: URL
     
     init(url: URL) {
-        
         webURL = url
-        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -29,7 +27,6 @@ final class BrowserWebViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
         
         do /** Config UI */ {
