@@ -32,6 +32,7 @@ PODS:
     - RxCocoa
     - RxSwift
   - RxSwift (3.0.1)
+  - SideMenu (2.0.7)
   - SnapKit (3.0.2)
   - SwiftWebVC (0.2.1)
   - Then (2.1.0)
@@ -51,6 +52,7 @@ DEPENDENCIES:
   - RxDataSources (~> 1.0)
   - RxOptional
   - RxSwift
+  - SideMenu
   - SnapKit (~> 3.0.2)
   - SwiftWebVC
   - Then (~> 2.1)
@@ -71,10 +73,11 @@ SPEC CHECKSUMS:
   RxDataSources: 824693e84d00781d0a5e5cedc1ff95ce9250aacd
   RxOptional: b97b59183af80d1e729ac9e51d09a10be668d6a8
   RxSwift: af5680055c4ad04480189c52d28385b1029493a6
+  SideMenu: c5d3c3bc855b96bc2059e0b1ec346ecb54e80447
   SnapKit: 2e456761aa92d4d4067a7a5594c18769d451a8ad
   SwiftWebVC: 63c8ccff38ee865661bf6f0c63fbcf75fbc878f4
   Then: 8496793c8fcac95482b943909b440724c7d8d82c
 
-PODFILE CHECKSUM: 8c3b19d9745f8e9372c53b72631d79e87a3ae259
+PODFILE CHECKSUM: 4c77826cf99bfc33c2e7c24f7ec4c5dbd23a75ee
 
 COCOAPODS: 1.2.0.beta.1

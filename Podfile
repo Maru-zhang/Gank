@@ -20,6 +20,7 @@ def shared_pods
     pod 'ObjectMapper'
     pod 'NoticeBar'
     pod 'SwiftWebVC'
+    pod 'SideMenu'
 end
 
 target :'Gank' do

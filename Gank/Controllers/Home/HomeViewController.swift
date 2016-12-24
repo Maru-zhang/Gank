@@ -44,7 +44,6 @@ final class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(true, animated: true)
         setNeedsStatusBarAppearanceUpdate()
     }
     
@@ -60,6 +59,8 @@ extension HomeViewController {
     fileprivate func setup() {
         
         do /** UI Config */ {
+            
+            title = "Gank"
                         
             tableView.estimatedRowHeight = 100
             tableView.addPullToRefresh(refreshControl, action: { [unowned self] in
@@ -143,7 +144,7 @@ extension HomeViewController {
     // MARK: - Private Methpd
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .default
+        return .lightContent
     }
 }
 

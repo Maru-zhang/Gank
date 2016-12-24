@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		AF3C0C221E0AA003002644DD /* BrowserWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3C0C211E0AA003002644DD /* BrowserWebViewController.swift */; };
 		AF3C0C241E0AA851002644DD /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3C0C231E0AA851002644DD /* Config.swift */; };
+		AF69F0EB1E0E055D00735284 /* SideMenuNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF69F0EA1E0E055D00735284 /* SideMenuNavigationController.swift */; };
+		AF69F0ED1E0E08DE00735284 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF69F0EC1E0E08DE00735284 /* BaseNavigationController.swift */; };
+		AF69F0F01E0E0C9400735284 /* SideViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF69F0EF1E0E0C9400735284 /* SideViewController.swift */; };
 		AF9F0FD11DF1A6CD00FF8EC5 /* Brick.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9F0FD01DF1A6CD00FF8EC5 /* Brick.swift */; };
 		AF9F0FD41DF1A91300FF8EC5 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9F0FD31DF1A91300FF8EC5 /* HomeViewController.swift */; };
 		AF9F0FD91DF1A9E900FF8EC5 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9F0FD71DF1A9E900FF8EC5 /* HomeTableViewCell.swift */; };
@@ -29,6 +32,9 @@
 		8D471DB23A1F471D67A6B0EE /* Pods-Gank.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Gank.release.xcconfig"; path = "Pods/Target Support Files/Pods-Gank/Pods-Gank.release.xcconfig"; sourceTree = "<group>"; };
 		AF3C0C211E0AA003002644DD /* BrowserWebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserWebViewController.swift; sourceTree = "<group>"; };
 		AF3C0C231E0AA851002644DD /* Config.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		AF69F0EA1E0E055D00735284 /* SideMenuNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuNavigationController.swift; sourceTree = "<group>"; };
+		AF69F0EC1E0E08DE00735284 /* BaseNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
+		AF69F0EF1E0E0C9400735284 /* SideViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideViewController.swift; sourceTree = "<group>"; };
 		AF9F0FD01DF1A6CD00FF8EC5 /* Brick.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Brick.swift; sourceTree = "<group>"; };
 		AF9F0FD31DF1A91300FF8EC5 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		AF9F0FD71DF1A9E900FF8EC5 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
@@ -73,6 +79,23 @@
 				AF3C0C211E0AA003002644DD /* BrowserWebViewController.swift */,
 			);
 			path = Web;
+			sourceTree = "<group>";
+		};
+		AF69F0E91E0E052D00735284 /* Navigate */ = {
+			isa = PBXGroup;
+			children = (
+				AF69F0EA1E0E055D00735284 /* SideMenuNavigationController.swift */,
+				AF69F0EC1E0E08DE00735284 /* BaseNavigationController.swift */,
+			);
+			path = Navigate;
+			sourceTree = "<group>";
+		};
+		AF69F0EE1E0E0C6D00735284 /* Side */ = {
+			isa = PBXGroup;
+			children = (
+				AF69F0EF1E0E0C9400735284 /* SideViewController.swift */,
+			);
+			path = Side;
 			sourceTree = "<group>";
 		};
 		AF9F0FCE1DF1A66300FF8EC5 /* Models */ = {
@@ -158,6 +181,8 @@
 		AFA7EC7F1DEF4BB400138AEE /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				AF69F0EE1E0E0C6D00735284 /* Side */,
+				AF69F0E91E0E052D00735284 /* Navigate */,
 				AF3C0C201E0A9FBC002644DD /* Web */,
 				AF9F0FD21DF1A8FA00FF8EC5 /* Home */,
 			);
@@ -370,6 +395,9 @@
 				AF9F0FD11DF1A6CD00FF8EC5 /* Brick.swift in Sources */,
 				AFBBA5CD1E06F783003605D1 /* Response+ObjectMapper.swift in Sources */,
 				AF9F0FD91DF1A9E900FF8EC5 /* HomeTableViewCell.swift in Sources */,
+				AF69F0EB1E0E055D00735284 /* SideMenuNavigationController.swift in Sources */,
+				AF69F0ED1E0E08DE00735284 /* BaseNavigationController.swift in Sources */,
+				AF69F0F01E0E0C9400735284 /* SideViewController.swift in Sources */,
 				AF3C0C241E0AA851002644DD /* Config.swift in Sources */,
 				AF9F0FD41DF1A91300FF8EC5 /* HomeViewController.swift in Sources */,
 				AFBBA5CA1E05320A003605D1 /* NSObject+Rx.swift in Sources */,
