@@ -39,7 +39,6 @@ final class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setNeedsStatusBarAppearanceUpdate()
     }
     
     override func didReceiveMemoryWarning() {
@@ -56,12 +55,10 @@ extension HomeViewController {
         do /** UI Config */ {
             
             title = "Gank"
-                        
+            
             tableView.estimatedRowHeight = 100
-            tableView.addPullToRefresh(refreshControl, action: { [unowned self] in
-                self.homeVM.refreshCommand.onNext(0)
-            })
-                                    
+            tableView.addPullToRefresh(refreshControl, action: {})
+            
             view.addSubview(tableView)
             
             tableView.snp.makeConstraints { (make) in
@@ -74,14 +71,18 @@ extension HomeViewController {
         
             // Input
 
-//            segement.rx.controlEvent(.valueChanged)
-//                .map({ self.segement.selectedSegmentIndex })
-//                .observeOn(MainScheduler.instance)
-//                .do(onNext: { (idx) in
-//                    self.tableView.startRefreshing(at: .top)
-//                }, onError: nil, onCompleted: nil, onSubscribe:nil,onDispose: nil)
-//                .bindTo(homeVM.refreshCommand)
-//                .addDisposableTo(rx_disposeBag)
+            NotificationCenter.default.rx.notification(Notification.Name.category)
+                .map({ (notification) -> Int in
+                    let indexPath = (notification.object as? IndexPath) ?? IndexPath(item: 0, section: 0)
+                    return indexPath.row
+                })
+                .observeOn(MainScheduler.instance)
+                .do(onNext: { (idx) in
+                    print(idx)
+                    self.tableView.startRefreshing(at: .top)
+                }, onError: nil, onCompleted: nil, onSubscribe:nil,onDispose: nil)
+                .bindTo(homeVM.refreshCommand)
+                .addDisposableTo(rx_disposeBag)
             
             // Output
             
@@ -120,7 +121,7 @@ extension HomeViewController {
             }
         }
         
-        self.tableView.startRefreshing(at: .top)
+        NotificationCenter.default.post(name: Notification.Name.category, object: IndexPath(row: 0, section: 0))
 
     }
     

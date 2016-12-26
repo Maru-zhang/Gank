@@ -29,7 +29,8 @@ extension HomeSection: SectionModelType {
 
 class HomeViewModel: NSObject {
     
-    /// 首页干货
+
+    // Inputs
     
     let section: Driver<[HomeSection]>
     
@@ -59,7 +60,6 @@ class HomeViewModel: NSObject {
                     do {
                         let data = try response.mapArray(Brick.self)
                         self?.bricks.value = data
-                        debugPrint(data)
                     }catch {
                         self?.bricks.value = []
                     }
