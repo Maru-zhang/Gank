@@ -64,6 +64,7 @@ extension AppDelegate {
         
         do /** SideMenu Config */ {
             SideMenuManager.menuAnimationBackgroundColor = Config.UI.themeColor
+            SideMenuManager.menuWidth = 100.0
             SideMenuManager.menuFadeStatusBar = false
         }
     }

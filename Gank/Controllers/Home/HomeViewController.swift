@@ -21,11 +21,6 @@ import PullToRefresh
 
 final class HomeViewController: UIViewController {
     
-    let segement = HMSegmentedControl().then {
-        $0.sectionTitles = ["All","Android","iOS","休息视频","福利","拓展资源","前端","瞎推荐","App"]
-        $0.selectionIndicatorColor = Config.UI.themeColor
-    }
-    
     let tableView = UITableView().then {
         $0.register(cellType: HomeTableViewCell.self)
     }
@@ -33,7 +28,7 @@ final class HomeViewController: UIViewController {
     let refreshControl = PullToRefresh()
     
     let homeVM = HomeViewModel()
-    
+        
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -64,21 +59,13 @@ extension HomeViewController {
                         
             tableView.estimatedRowHeight = 100
             tableView.addPullToRefresh(refreshControl, action: { [unowned self] in
-                self.homeVM.refreshCommand.onNext(self.segement.selectedSegmentIndex)
+                self.homeVM.refreshCommand.onNext(0)
             })
                                     
-            view.addSubview(segement)
             view.addSubview(tableView)
             
-            segement.snp.makeConstraints { (make) in
-                make.top.equalTo(view.snp.top).offset(20)
-                make.left.right.equalTo(view)
-                make.height.equalTo(50)
-            }
-            
             tableView.snp.makeConstraints { (make) in
-                make.left.right.bottom.equalTo(view)
-                make.top.equalTo(segement.snp.bottom)
+                make.edges.equalTo(view)
             }
             
         }
@@ -87,14 +74,14 @@ extension HomeViewController {
         
             // Input
 
-            segement.rx.controlEvent(.valueChanged)
-                .map({ self.segement.selectedSegmentIndex })
-                .observeOn(MainScheduler.instance)
-                .do(onNext: { (idx) in
-                    self.tableView.startRefreshing(at: .top)
-                }, onError: nil, onCompleted: nil, onSubscribe:nil,onDispose: nil)
-                .bindTo(homeVM.refreshCommand)
-                .addDisposableTo(rx_disposeBag)
+//            segement.rx.controlEvent(.valueChanged)
+//                .map({ self.segement.selectedSegmentIndex })
+//                .observeOn(MainScheduler.instance)
+//                .do(onNext: { (idx) in
+//                    self.tableView.startRefreshing(at: .top)
+//                }, onError: nil, onCompleted: nil, onSubscribe:nil,onDispose: nil)
+//                .bindTo(homeVM.refreshCommand)
+//                .addDisposableTo(rx_disposeBag)
             
             // Output
             
