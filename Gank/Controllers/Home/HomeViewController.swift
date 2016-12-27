@@ -17,6 +17,7 @@ import RxSwift
 import RxCocoa
 import Kingfisher
 import NoticeBar
+import SideMenu
 import PullToRefresh
 
 final class HomeViewController: UIViewController {
@@ -79,6 +80,7 @@ extension HomeViewController {
                 .observeOn(MainScheduler.instance)
                 .do(onNext: { (idx) in
                     print(idx)
+                    SideMenuManager.menuLeftNavigationController?.dismiss(animated: true, completion: nil)
                     self.tableView.startRefreshing(at: .top)
                 }, onError: nil, onCompleted: nil, onSubscribe:nil,onDispose: nil)
                 .bindTo(homeVM.refreshCommand)
