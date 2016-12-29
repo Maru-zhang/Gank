@@ -32,6 +32,8 @@ class HomeViewModel: NSObject {
 
     // Inputs
     
+    let category = Variable<Int>(0)
+    
     let section: Driver<[HomeSection]>
     
     let refreshCommand = PublishSubject<Int>()

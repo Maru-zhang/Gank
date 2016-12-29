@@ -40,6 +40,7 @@ final class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        NotificationCenter.default.post(name: Notification.Name.category, object: IndexPath(row: 0, section: 0))
     }
     
     override func didReceiveMemoryWarning() {
@@ -58,7 +59,7 @@ extension HomeViewController {
             title = "Gank"
             
             tableView.estimatedRowHeight = 100
-            tableView.addPullToRefresh(refreshControl, action: {})
+            tableView.refreshControl = UIRefreshControl()
             
             view.addSubview(tableView)
             
@@ -71,17 +72,33 @@ extension HomeViewController {
         do /** Rx Config */ {
         
             // Input
+            
+            tableView.refreshControl?.rx.controlEvent(.allEvents)
+                .flatMap({ self.homeVM.category.asObservable() })
+                .bindTo(homeVM.refreshCommand)
+                .addDisposableTo(rx_disposeBag)
+            
+            NotificationCenter.default.rx.notification(Notification.Name.category)
+                .map({ (notification) -> Int in
+                    let indexPath = (notification.object as? IndexPath) ?? IndexPath(item: 0, section: 0)
+                    return indexPath.row
+                })
+                .bindTo(homeVM.category)
+                .addDisposableTo(rx_disposeBag)
+            
 
             NotificationCenter.default.rx.notification(Notification.Name.category)
                 .map({ (notification) -> Int in
                     let indexPath = (notification.object as? IndexPath) ?? IndexPath(item: 0, section: 0)
                     return indexPath.row
                 })
-                .observeOn(MainScheduler.instance)
+                .observeOn(MainScheduler.asyncInstance)
                 .do(onNext: { (idx) in
-                    print(idx)
-                    SideMenuManager.menuLeftNavigationController?.dismiss(animated: true, completion: nil)
-                    self.tableView.startRefreshing(at: .top)
+                    SideMenuManager.menuLeftNavigationController?.dismiss(animated: true, completion: {
+                        DispatchQueue.main.async(execute: { 
+                            self.tableView.refreshControl?.beginRefreshing()
+                        })
+                    })
                 }, onError: nil, onCompleted: nil, onSubscribe:nil,onDispose: nil)
                 .bindTo(homeVM.refreshCommand)
                 .addDisposableTo(rx_disposeBag)
@@ -98,7 +115,7 @@ extension HomeViewController {
             homeVM.refreshTrigger
                 .observeOn(MainScheduler.instance)
                 .subscribe { [unowned self] (event) in
-                    self.tableView.endRefreshing(at: .top)
+                    self.tableView.refreshControl?.endRefreshing()
                     switch event {
                     case .error(_):
                         NoticeBar(title: "Network Disconnect!", defaultType: .error).show(duration: 2.0, completed: nil)
@@ -123,8 +140,6 @@ extension HomeViewController {
             }
         }
         
-        NotificationCenter.default.post(name: Notification.Name.category, object: IndexPath(row: 0, section: 0))
-
     }
     
 }
