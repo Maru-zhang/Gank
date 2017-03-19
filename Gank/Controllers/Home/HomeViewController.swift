@@ -40,7 +40,7 @@ final class HomeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NotificationCenter.default.post(name: Notification.Name.category, object: IndexPath(row: 0, section: 0))
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -59,6 +59,7 @@ extension HomeViewController {
             title = "Gank"
             
             tableView.estimatedRowHeight = 100
+            tableView.separatorStyle = .none
             tableView.refreshControl = UIRefreshControl()
             
             view.addSubview(tableView)
@@ -139,6 +140,8 @@ extension HomeViewController {
                 return cell
             }
         }
+        
+        NotificationCenter.default.post(name: Notification.Name.category, object: IndexPath(row: 0, section: 0))
         
     }
     
