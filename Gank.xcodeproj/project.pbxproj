@@ -24,6 +24,7 @@
 		AFBBA5CD1E06F783003605D1 /* Response+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBBA5CC1E06F783003605D1 /* Response+ObjectMapper.swift */; };
 		AFBDB2621DF58F23003E8EE2 /* GankAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBDB2611DF58F23003E8EE2 /* GankAPI.swift */; };
 		AFCB661E1DF844DB00916E1B /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCB661D1DF844DB00916E1B /* HomeViewModel.swift */; };
+		AFE2BA9A1E8144000066474E /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE2BA991E8144000066474E /* ViewModelType.swift */; };
 		F2322ED0BDDB5547F4A1D973 /* Pods_Gank.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ECF6CC27851F092E4B160AF6 /* Pods_Gank.framework */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		AFBBA5CC1E06F783003605D1 /* Response+ObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Response+ObjectMapper.swift"; sourceTree = "<group>"; };
 		AFBDB2611DF58F23003E8EE2 /* GankAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GankAPI.swift; sourceTree = "<group>"; };
 		AFCB661D1DF844DB00916E1B /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		AFE2BA991E8144000066474E /* ViewModelType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 		ECF6CC27851F092E4B160AF6 /* Pods_Gank.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Gank.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -169,6 +171,7 @@
 				AFBDB25F1DF58ED9003E8EE2 /* Services */,
 				AFBBA5C71E0531C2003605D1 /* Vendors */,
 				AFBBA5CB1E06F76C003605D1 /* Extensions */,
+				AFE2BA981E8143CD0066474E /* Protocol */,
 				AFA7EC6D1DEEDEDC00138AEE /* AppDelegate.swift */,
 				AFA7EC741DEEDEDC00138AEE /* Assets.xcassets */,
 				AFA7EC711DEEDEDC00138AEE /* Main.storyboard */,
@@ -252,6 +255,14 @@
 				AFCB661D1DF844DB00916E1B /* HomeViewModel.swift */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		AFE2BA981E8143CD0066474E /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				AFE2BA991E8144000066474E /* ViewModelType.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		B934ED3498AB176D331F2919 /* Pods */ = {
@@ -394,6 +405,7 @@
 				AFA7EC6E1DEEDEDC00138AEE /* AppDelegate.swift in Sources */,
 				AF9F0FD11DF1A6CD00FF8EC5 /* Brick.swift in Sources */,
 				AFBBA5CD1E06F783003605D1 /* Response+ObjectMapper.swift in Sources */,
+				AFE2BA9A1E8144000066474E /* ViewModelType.swift in Sources */,
 				AF9F0FD91DF1A9E900FF8EC5 /* HomeTableViewCell.swift in Sources */,
 				AF69F0EB1E0E055D00735284 /* SideMenuNavigationController.swift in Sources */,
 				AF69F0ED1E0E08DE00735284 /* BaseNavigationController.swift in Sources */,

@@ -71,12 +71,17 @@ extension HomeViewController {
         }
         
         do /** Rx Config */ {
-        
-            // Input
             
+            // Input
+            let inputStuff  = HomeViewModel.HomeInput()
+            
+            // Output
+            let outputStuff = homeVM.transform(input: inputStuff)
+        
+            // DataBinding
             tableView.refreshControl?.rx.controlEvent(.allEvents)
-                .flatMap({ self.homeVM.category.asObservable() })
-                .bindTo(homeVM.refreshCommand)
+                .flatMap({ inputStuff.category.asObservable() })
+                .bindTo(outputStuff.refreshCommand)
                 .addDisposableTo(rx_disposeBag)
             
             NotificationCenter.default.rx.notification(Notification.Name.category)
@@ -84,7 +89,7 @@ extension HomeViewController {
                     let indexPath = (notification.object as? IndexPath) ?? IndexPath(item: 0, section: 0)
                     return indexPath.row
                 })
-                .bindTo(homeVM.category)
+                .bindTo(inputStuff.category)
                 .addDisposableTo(rx_disposeBag)
             
 
@@ -101,19 +106,17 @@ extension HomeViewController {
                         })
                     })
                 }, onError: nil, onCompleted: nil, onSubscribe:nil,onDispose: nil)
-                .bindTo(homeVM.refreshCommand)
+                .bindTo(outputStuff.refreshCommand)
                 .addDisposableTo(rx_disposeBag)
-            
-            // Output
-            
-            homeVM.section
-                .drive(tableView.rx.items(dataSource: homeVM.dataSource))
+                        
+            outputStuff.section
+                .drive(tableView.rx.items(dataSource: outputStuff.dataSource))
                 .addDisposableTo(rx_disposeBag)
             
             tableView.rx.setDelegate(self)
                 .addDisposableTo(rx_disposeBag)
             
-            homeVM.refreshTrigger
+            outputStuff.refreshTrigger
                 .observeOn(MainScheduler.instance)
                 .subscribe { [unowned self] (event) in
                     self.tableView.refreshControl?.endRefreshing()
@@ -132,7 +135,7 @@ extension HomeViewController {
             
             // Configure
             
-            homeVM.dataSource.configureCell = { dataSource, tableView, indexPath, item in
+            outputStuff.dataSource.configureCell = { dataSource, tableView, indexPath, item in
                 let cell = tableView.dequeueReusableCell(for: indexPath, cellType: HomeTableViewCell.self)
                 cell.gankTitle?.text = item.desc
                 cell.gankAuthor.text = item.who
@@ -168,8 +171,7 @@ extension HomeViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let item = homeVM.dataSource.sectionModels[0].items[indexPath.row]
-        let webActivity = BrowserWebViewController(url: URL(string: item.url) ?? URL(string: "")!)
+        let webActivity = BrowserWebViewController(url: homeVM.itemURLs.value[indexPath.row])
         navigationController?.pushViewController(webActivity, animated: true)
     }
 }

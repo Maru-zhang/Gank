@@ -27,54 +27,80 @@ extension HomeSection: SectionModelType {
     }
 }
 
-class HomeViewModel: NSObject {
+final class HomeViewModel: NSObject,ViewModelType {
     
+    typealias Input  = HomeInput
+    typealias Output = HomeOutput
 
     // Inputs
+    struct HomeInput {
+        let category = Variable<Int>(0)
+    }
     
-    let category = Variable<Int>(0)
-    
-    let section: Driver<[HomeSection]>
-    
-    let refreshCommand = PublishSubject<Int>()
-    
-    let refreshTrigger = PublishSubject<Void>()
-    
-    let dataSource = RxTableViewSectionedReloadDataSource<HomeSection>()
-    
-    fileprivate let bricks = Variable<[Brick]>([])
-    
-    override init() {
+    // Output
+    struct HomeOutput {
         
-        section = bricks.asObservable().map({ (bricks) -> [HomeSection] in
+        let section: Driver<[HomeSection]>
+        let refreshCommand = PublishSubject<Int>()
+        let refreshTrigger = PublishSubject<Void>()
+        let dataSource = RxTableViewSectionedReloadDataSource<HomeSection>()
+        
+        init(homeSection: Driver<[HomeSection]>) {
+            section = homeSection
+        }
+    }
+    
+    // Public  Stuff
+    var itemURLs = Variable<[URL]>([])
+    // Private Stuff
+    fileprivate let _bricks = Variable<[Brick]>([])
+    
+    /// Tansform Action for DataBinding
+    func transform(input: HomeViewModel.Input) -> HomeViewModel.Output {
+        
+        let section = _bricks.asObservable().map({ (bricks) -> [HomeSection] in
             return [HomeSection(items: bricks)]
         })
         .asDriver(onErrorJustReturn: [])
-    
-        super.init()
         
-        refreshCommand
+        let output = Output(homeSection: section)
+        
+        output.refreshCommand
             .flatMapLatest { gankApi.request(.data(type: GankAPI.GankCategory.mapCategory(with: $0), size: 20, index: 0)) }
             .subscribe({ [weak self] (event) in
-                self?.refreshTrigger.onNext()
+                output.refreshTrigger.onNext()
                 switch event {
                 case let .next(response):
                     do {
                         let data = try response.mapArray(Brick.self)
-                        self?.bricks.value = data
+                        self?._bricks.value = data
                     }catch {
-                        self?.bricks.value = []
+                        self?._bricks.value = []
                     }
                     break
                 case let .error(error):
-                    self?.refreshTrigger.onError(error);
+                    output.refreshTrigger.onError(error);
                     break
                 default:
                     break
                 }
             })
             .addDisposableTo(rx_disposeBag)
-
+        
+        return Output(homeSection: section)
+    }
+    
+    override init() {
+        super.init()
+        
+        _bricks.asObservable().map { (bricks) -> [URL] in
+            return bricks.map({ (brick) -> URL in
+                return URL(string: brick.url)!
+            })
+        }.subscribe(onNext: { [weak self] (urls) in
+            self?.itemURLs.value = urls
+        }, onError: nil, onCompleted: nil, onDisposed: nil)
+        .addDisposableTo(rx_disposeBag)
     }
     
 }
