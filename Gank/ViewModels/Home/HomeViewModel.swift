@@ -87,7 +87,7 @@ final class HomeViewModel: NSObject,ViewModelType {
             })
             .addDisposableTo(rx_disposeBag)
         
-        return Output(homeSection: section)
+        return output
     }
     
     override init() {
