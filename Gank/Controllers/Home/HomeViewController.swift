@@ -108,7 +108,16 @@ extension HomeViewController {
                 }, onError: nil, onCompleted: nil, onSubscribe:nil,onDispose: nil)
                 .bindTo(outputStuff.refreshCommand)
                 .addDisposableTo(rx_disposeBag)
-                        
+            
+            // Configure
+            outputStuff.dataSource.configureCell = { dataSource, tableView, indexPath, item in
+                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: HomeTableViewCell.self)
+                cell.gankTitle?.text = item.desc
+                cell.gankAuthor.text = item.who
+                cell.gankTime.text = item.publishedAt.toString(format: "YYYY/MM/DD")
+                return cell
+            }
+            
             outputStuff.section
                 .drive(tableView.rx.items(dataSource: outputStuff.dataSource))
                 .addDisposableTo(rx_disposeBag)
@@ -132,16 +141,6 @@ extension HomeViewController {
                     }
                 }
                 .addDisposableTo(rx_disposeBag)
-            
-            // Configure
-            
-            outputStuff.dataSource.configureCell = { dataSource, tableView, indexPath, item in
-                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: HomeTableViewCell.self)
-                cell.gankTitle?.text = item.desc
-                cell.gankAuthor.text = item.who
-                cell.gankTime.text = item.publishedAt.toString(format: "YYYY/MM/DD")
-                return cell
-            }
         }
         
         NotificationCenter.default.post(name: Notification.Name.category, object: IndexPath(row: 0, section: 0))

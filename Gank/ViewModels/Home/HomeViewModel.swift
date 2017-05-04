@@ -36,10 +36,10 @@ final class HomeViewModel: NSObject,ViewModelType {
     struct HomeInput {
         let category = Variable<Int>(0)
     }
-    
+
     // Output
     struct HomeOutput {
-        
+
         let section: Driver<[HomeSection]>
         let refreshCommand = PublishSubject<Int>()
         let refreshTrigger = PublishSubject<Void>()

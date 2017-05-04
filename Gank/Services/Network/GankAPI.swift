@@ -13,47 +13,47 @@ enum GankAPI {
     
     enum GankCategory: String {
         
-        case All      = "all"
-        case Android  = "Android"
+        case all      = "all"
+        case android  = "Android"
         case iOS      = "iOS"
-        case Video    = "休息视频"
-        case Welfare  = "福利"
-        case Resource = "拓展资源"
-        case FrontEnd = "前端"
-        case Mass     = "瞎推荐"
-        case APP      = "App"
-        
+        case video    = "休息视频"
+        case welfare  = "福利"
+        case resource = "拓展资源"
+        case frontEnd = "前端"
+        case mass     = "瞎推荐"
+        case app      = "App"
+
         static func mapCategory(with hashValue: Int) -> GankCategory {
             switch hashValue {
             case 0:
-                return .All
+                return .all
             case 1:
-                return .Android
+                return .android
             case 2:
                 return .iOS
             case 3:
-                return .Video
+                return .video
             case 4:
-                return .Welfare
+                return .welfare
             case 5:
-                return .Resource
+                return .resource
             case 6:
-                return .FrontEnd
+                return .frontEnd
             case 7:
-                return .Mass
+                return .mass
             case 8:
-                return .APP
+                return .app
             default:
-                return .All
+                return .all
             }
         }
     }
-    
+
     case data(type: GankCategory,size: Int64,index: Int64)
 }
 
 extension GankAPI: TargetType {
-    
+
     var baseURL: URL { return URL(string: "http://gank.io")! }
     
     var path: String {
@@ -62,22 +62,22 @@ extension GankAPI: TargetType {
             return "/api/data/\(type.rawValue)/\(size)/\(index)"
         }
     }
-    
+
     var method: Moya.Method {
         switch self {
         default:
             return .get
         }
     }
-    
+
     var sampleData: Data {
         return "this is a sample data".utf8EncodedData
     }
-    
+
     var parameters: [String : Any]? {
         return nil
     }
-    
+
     var task: Task {
         switch self {
         case .data(_,_,_):

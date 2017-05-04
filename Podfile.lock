@@ -2,7 +2,7 @@ PODS:
   - Action (2.2.1):
     - RxCocoa (~> 3.0)
     - RxSwift (~> 3.0)
-  - Alamofire (4.0.1)
+  - Alamofire (4.4.0)
   - EZSwiftExtensions (1.8)
   - HMSegmentedControl (1.5.3)
   - Kingfisher (3.1.4)
@@ -34,12 +34,14 @@ PODS:
   - RxSwift (3.2.0)
   - SideMenu (2.2.0)
   - SnapKit (3.0.2)
+  - SwiftLint (0.18.1)
   - SwiftWebVC (0.3.4)
+  - SwiftyBeaver (1.2.1)
   - Then (2.1.0)
 
 DEPENDENCIES:
   - Action
-  - Alamofire (~> 4.0.1)
+  - Alamofire
   - EZSwiftExtensions
   - HMSegmentedControl
   - Kingfisher (~> 3.1.4)
@@ -54,12 +56,14 @@ DEPENDENCIES:
   - RxSwift
   - SideMenu
   - SnapKit (~> 3.0.2)
+  - SwiftLint
   - SwiftWebVC
+  - SwiftyBeaver
   - Then (~> 2.1)
 
 SPEC CHECKSUMS:
   Action: 93c6c9eec95eb76428b2d49a6d260466c2f71b7e
-  Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
+  Alamofire: dc44b1600b800eb63da6a19039a0083d62a6a62d
   EZSwiftExtensions: b58e0fe7702e30c4f01bd039658fe84b4fdf5bd5
   HMSegmentedControl: 7c6145afb50f26cec5f3243082f6f12b9f41318f
   Kingfisher: 6c67e3e57f2d81a9cfdfa25052cd86f33ceac9bb
@@ -75,9 +79,11 @@ SPEC CHECKSUMS:
   RxSwift: 46574f70d416b7923c237195939cc488a7fbf3a0
   SideMenu: eeff6b85456c5c6e14165655691d2033f6b24969
   SnapKit: 2e456761aa92d4d4067a7a5594c18769d451a8ad
+  SwiftLint: b467d08f5b25dc3b3cfed243d8e1b74b91714c67
   SwiftWebVC: 4e0e69f80db2ea78a0ee33e8bac053e1028fb1d7
+  SwiftyBeaver: f29dc64b0ae619d73ee94fd04bd532f895765208
   Then: 8496793c8fcac95482b943909b440724c7d8d82c
 
-PODFILE CHECKSUM: 4c77826cf99bfc33c2e7c24f7ec4c5dbd23a75ee
+PODFILE CHECKSUM: 44ca2a0d6d5e9ab9b1313d1e5b33159626f5f039
 
-COCOAPODS: 1.2.0.beta.1
+COCOAPODS: 1.2.1
