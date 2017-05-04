@@ -10,7 +10,7 @@ import Foundation
 import ObjectMapper
 
 struct Brick: Equatable,Mappable {
-    
+
     var id: String         = ""
     var createdAt: Date     = Date()
     var desc: String        = ""
@@ -21,15 +21,15 @@ struct Brick: Equatable,Mappable {
     var used: String        = ""
     var who: String         = ""
     var images: [String]    = []
-    
+
     public static func == (lhs: Brick, rhs: Brick) -> Bool {
         return lhs.id == rhs.id ? true : false
     }
-    
+
     init?(map: Map) { }
-    
+
     init() { }
-    
+
     mutating func mapping(map: Map) {
         id <- map["id"]
         createdAt <- map["createdAt"]
@@ -42,5 +42,5 @@ struct Brick: Equatable,Mappable {
         who <- map["who"]
         images <- map["images"]
     }
-    
+
 }

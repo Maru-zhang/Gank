@@ -11,7 +11,7 @@ import SnapKit
 import WebKit
 
 final class BrowserWebViewController: UIViewController {
-    
+
     let webView = WKWebView()
     var webURL: URL
     init(url: URL) {
@@ -51,22 +51,22 @@ final class BrowserWebViewController: UIViewController {
 }
 
 extension BrowserWebViewController: WKUIDelegate {
-    
+
 }
 
 extension BrowserWebViewController: WKNavigationDelegate {
-    
+
     func webView(_ webView: WKWebView, didStartProvisionalNavigation navigation: WKNavigation!) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
     }
-    
+
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
-        webView.evaluateJavaScript("document.title", completionHandler: {(response, error) in
+        webView.evaluateJavaScript("document.title", completionHandler: {(response, _) in
             self.title = response as! String?
         })
     }
-    
+
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }

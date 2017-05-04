@@ -23,7 +23,7 @@ class SideViewController: UITableViewController {
 }
 
 extension SideViewController {
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         NotificationCenter.default.post(name: NSNotification.Name.category, object: indexPath)
     }

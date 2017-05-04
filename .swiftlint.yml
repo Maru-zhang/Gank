@@ -45,7 +45,7 @@ custom_rules:
 # naming rules can set warnings/errors for min_length and max_length
 # additionally they can set excluded names
 type_name:
-  min_length: 4 # only warning
+  min_length: 2 # only warning
   max_length: # warning and error
     warning: 40
     error: 1000

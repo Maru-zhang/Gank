@@ -13,14 +13,14 @@ import RxDataSources
 import Moya
 
 struct HomeSection {
-    
+
     var items: [Item]
 }
 
 extension HomeSection: SectionModelType {
-    
+
     typealias Item = Brick
-    
+
     init(original: HomeSection, items: [HomeSection.Item]) {
         self = original
         self.items = items
@@ -28,7 +28,7 @@ extension HomeSection: SectionModelType {
 }
 
 final class HomeViewModel: NSObject,ViewModelType {
-    
+
     typealias Input  = HomeInput
     typealias Output = HomeOutput
 
@@ -44,27 +44,27 @@ final class HomeViewModel: NSObject,ViewModelType {
         let refreshCommand = PublishSubject<Int>()
         let refreshTrigger = PublishSubject<Void>()
         let dataSource = RxTableViewSectionedReloadDataSource<HomeSection>()
-        
+
         init(homeSection: Driver<[HomeSection]>) {
             section = homeSection
         }
     }
-    
+
     // Public  Stuff
     var itemURLs = Variable<[URL]>([])
     // Private Stuff
     fileprivate let _bricks = Variable<[Brick]>([])
-    
+
     /// Tansform Action for DataBinding
     func transform(input: HomeViewModel.Input) -> HomeViewModel.Output {
-        
+
         let section = _bricks.asObservable().map({ (bricks) -> [HomeSection] in
             return [HomeSection(items: bricks)]
         })
         .asDriver(onErrorJustReturn: [])
-        
+
         let output = Output(homeSection: section)
-        
+
         output.refreshCommand
             .flatMapLatest { gankApi.request(.data(type: GankAPI.GankCategory.mapCategory(with: $0), size: 20, index: 0)) }
             .subscribe({ [weak self] (event) in
@@ -74,25 +74,25 @@ final class HomeViewModel: NSObject,ViewModelType {
                     do {
                         let data = try response.mapArray(Brick.self)
                         self?._bricks.value = data
-                    }catch {
+                    } catch {
                         self?._bricks.value = []
                     }
                     break
                 case let .error(error):
-                    output.refreshTrigger.onError(error);
+                    output.refreshTrigger.onError(error)
                     break
                 default:
                     break
                 }
             })
             .addDisposableTo(rx_disposeBag)
-        
+
         return output
     }
-    
+
     override init() {
         super.init()
-        
+
         _bricks.asObservable().map { (bricks) -> [URL] in
             return bricks.map({ (brick) -> URL in
                 return URL(string: brick.url)!
@@ -102,7 +102,5 @@ final class HomeViewModel: NSObject,ViewModelType {
         }, onError: nil, onCompleted: nil, onDisposed: nil)
         .addDisposableTo(rx_disposeBag)
     }
-    
+
 }
-
-

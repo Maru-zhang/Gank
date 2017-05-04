@@ -21,69 +21,67 @@ import SideMenu
 import PullToRefresh
 
 final class HomeViewController: UIViewController {
-    
+
     let tableView = UITableView().then {
         $0.register(cellType: HomeTableViewCell.self)
     }
-    
+
     let refreshControl = PullToRefresh()
-    
+
     let homeVM = HomeViewModel()
-        
+
     // MARK: - Life Cycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setup()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 }
 
 extension HomeViewController {
-    
+
     // MARK: - Private Method
-    
+
     fileprivate func setup() {
-        
+
         do /** UI Config */ {
-            
+
             title = "Gank"
-            
+
             tableView.estimatedRowHeight = 100
             tableView.separatorStyle = .none
             tableView.refreshControl = UIRefreshControl()
-            
+
             view.addSubview(tableView)
-            
+
             tableView.snp.makeConstraints { (make) in
                 make.edges.equalTo(view)
             }
-            
+
         }
-        
+
         do /** Rx Config */ {
-            
+
             // Input
             let inputStuff  = HomeViewModel.HomeInput()
-            
+
             // Output
             let outputStuff = homeVM.transform(input: inputStuff)
-        
+
             // DataBinding
             tableView.refreshControl?.rx.controlEvent(.allEvents)
                 .flatMap({ inputStuff.category.asObservable() })
                 .bindTo(outputStuff.refreshCommand)
                 .addDisposableTo(rx_disposeBag)
-            
+
             NotificationCenter.default.rx.notification(Notification.Name.category)
                 .map({ (notification) -> Int in
                     let indexPath = (notification.object as? IndexPath) ?? IndexPath(item: 0, section: 0)
@@ -91,7 +89,6 @@ extension HomeViewController {
                 })
                 .bindTo(inputStuff.category)
                 .addDisposableTo(rx_disposeBag)
-            
 
             NotificationCenter.default.rx.notification(Notification.Name.category)
                 .map({ (notification) -> Int in
@@ -99,16 +96,16 @@ extension HomeViewController {
                     return indexPath.row
                 })
                 .observeOn(MainScheduler.asyncInstance)
-                .do(onNext: { (idx) in
+                .do(onNext: { (_) in
                     SideMenuManager.menuLeftNavigationController?.dismiss(animated: true, completion: {
-                        DispatchQueue.main.async(execute: { 
+                        DispatchQueue.main.async(execute: {
                             self.tableView.refreshControl?.beginRefreshing()
                         })
                     })
                 }, onError: nil, onCompleted: nil, onSubscribe:nil,onDispose: nil)
                 .bindTo(outputStuff.refreshCommand)
                 .addDisposableTo(rx_disposeBag)
-            
+
             // Configure
             outputStuff.dataSource.configureCell = { dataSource, tableView, indexPath, item in
                 let cell = tableView.dequeueReusableCell(for: indexPath, cellType: HomeTableViewCell.self)
@@ -117,14 +114,14 @@ extension HomeViewController {
                 cell.gankTime.text = item.publishedAt.toString(format: "YYYY/MM/DD")
                 return cell
             }
-            
+
             outputStuff.section
                 .drive(tableView.rx.items(dataSource: outputStuff.dataSource))
                 .addDisposableTo(rx_disposeBag)
-            
+
             tableView.rx.setDelegate(self)
                 .addDisposableTo(rx_disposeBag)
-            
+
             outputStuff.refreshTrigger
                 .observeOn(MainScheduler.instance)
                 .subscribe { [unowned self] (event) in
@@ -142,32 +139,32 @@ extension HomeViewController {
                 }
                 .addDisposableTo(rx_disposeBag)
         }
-        
+
         NotificationCenter.default.post(name: Notification.Name.category, object: IndexPath(row: 0, section: 0))
-        
+
     }
-    
+
 }
 
 extension HomeViewController {
-    
+
     // MARK: - Private Methpd
-    
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
 }
 
 extension HomeViewController: UITableViewDelegate {
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return HomeTableViewCell.height
     }
-    
+
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return UIView()
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let webActivity = BrowserWebViewController(url: homeVM.itemURLs.value[indexPath.row])

@@ -29,12 +29,11 @@ public extension Response {
           let objects = Mapper<T>().mapArray(JSONArray: json["results"] as! [[String : Any]]) else {
         throw Error.jsonMapping(self)
     }
-    
+
     return objects
   }
 
 }
-
 
 // MARK: - ImmutableMappable
 

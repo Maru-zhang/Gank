@@ -10,9 +10,9 @@ import Foundation
 import Moya
 
 enum GankAPI {
-    
+
     enum GankCategory: String {
-        
+
         case all      = "all"
         case android  = "Android"
         case iOS      = "iOS"
@@ -55,7 +55,7 @@ enum GankAPI {
 extension GankAPI: TargetType {
 
     var baseURL: URL { return URL(string: "http://gank.io")! }
-    
+
     var path: String {
         switch self {
         case .data(let type,let size,let index):
@@ -91,10 +91,8 @@ let gankApi = RxMoyaProvider<GankAPI>()
 // MARK: - Helpers
 
 private extension String {
-    
+
     var utf8EncodedData: Data {
         return self.data(using: .utf8)!
     }
 }
-
-

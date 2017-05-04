@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate {
-    
+
     fileprivate func setupConfig() {
 
         do /** KingFisher Config */ {

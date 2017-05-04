@@ -20,9 +20,9 @@ class BaseNavigationController: UINavigationController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     override var childViewControllerForStatusBarStyle: UIViewController? {
         return topViewController
     }
-    
+
 }
