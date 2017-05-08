@@ -34,7 +34,9 @@ final class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setup()
+        configUI()
+        configBinding()
+        configNotification()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -50,100 +52,92 @@ extension HomeViewController {
 
     // MARK: - Private Method
 
-    fileprivate func setup() {
-
-        do /** UI Config */ {
-
-            title = "Gank"
-
-            tableView.estimatedRowHeight = 100
-            tableView.separatorStyle = .none
-            tableView.refreshControl = UIRefreshControl()
-
-            view.addSubview(tableView)
-
-            tableView.snp.makeConstraints { (make) in
-                make.edges.equalTo(view)
-            }
-
+    fileprivate func configUI() {
+        title = "Gank"
+        tableView.estimatedRowHeight = 100
+        tableView.separatorStyle = .none
+        tableView.refreshControl = UIRefreshControl()
+        view.addSubview(tableView)
+        tableView.snp.makeConstraints { (make) in
+            make.edges.equalTo(view)
         }
-
-        do /** Rx Config */ {
-
-            // Input
-            let inputStuff  = HomeViewModel.HomeInput()
-
-            // Output
-            let outputStuff = homeVM.transform(input: inputStuff)
-
-            // DataBinding
-            tableView.refreshControl?.rx.controlEvent(.allEvents)
-                .flatMap({ inputStuff.category.asObservable() })
-                .bindTo(outputStuff.refreshCommand)
-                .addDisposableTo(rx_disposeBag)
-
-            NotificationCenter.default.rx.notification(Notification.Name.category)
-                .map({ (notification) -> Int in
-                    let indexPath = (notification.object as? IndexPath) ?? IndexPath(item: 0, section: 0)
-                    return indexPath.row
-                })
-                .bindTo(inputStuff.category)
-                .addDisposableTo(rx_disposeBag)
-
-            NotificationCenter.default.rx.notification(Notification.Name.category)
-                .map({ (notification) -> Int in
-                    let indexPath = (notification.object as? IndexPath) ?? IndexPath(item: 0, section: 0)
-                    return indexPath.row
-                })
-                .observeOn(MainScheduler.asyncInstance)
-                .do(onNext: { (_) in
-                    SideMenuManager.menuLeftNavigationController?.dismiss(animated: true, completion: {
-                        DispatchQueue.main.async(execute: {
-                            self.tableView.refreshControl?.beginRefreshing()
-                        })
-                    })
-                }, onError: nil, onCompleted: nil, onSubscribe:nil,onDispose: nil)
-                .bindTo(outputStuff.refreshCommand)
-                .addDisposableTo(rx_disposeBag)
-
-            // Configure
-            outputStuff.dataSource.configureCell = { dataSource, tableView, indexPath, item in
-                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: HomeTableViewCell.self)
-                cell.gankTitle?.text = item.desc
-                cell.gankAuthor.text = item.who
-                cell.gankTime.text = item.publishedAt.toString(format: "YYYY/MM/DD")
-                return cell
-            }
-
-            outputStuff.section
-                .drive(tableView.rx.items(dataSource: outputStuff.dataSource))
-                .addDisposableTo(rx_disposeBag)
-
-            tableView.rx.setDelegate(self)
-                .addDisposableTo(rx_disposeBag)
-
-            outputStuff.refreshTrigger
-                .observeOn(MainScheduler.instance)
-                .subscribe { [unowned self] (event) in
-                    self.tableView.refreshControl?.endRefreshing()
-                    switch event {
-                    case .error(_):
-                        NoticeBar(title: "Network Disconnect!", defaultType: .error).show(duration: 2.0, completed: nil)
-                        break
-                    case .next(_):
-                        self.tableView.reloadData()
-                        break
-                    default:
-                        break
-                    }
-                }
-                .addDisposableTo(rx_disposeBag)
-        }
-
-        NotificationCenter.default.post(name: Notification.Name.category, object: IndexPath(row: 0, section: 0))
-
     }
 
+    fileprivate func configBinding() {
+
+
+        // Input
+        let inputStuff  = HomeViewModel.HomeInput()
+        // Output
+        let outputStuff = homeVM.transform(input: inputStuff)
+
+        // DataBinding
+        tableView.refreshControl?.rx.controlEvent(.allEvents)
+            .flatMap({ inputStuff.category.asObservable() })
+            .bindTo(outputStuff.refreshCommand)
+            .addDisposableTo(rx_disposeBag)
+
+        NotificationCenter.default.rx.notification(Notification.Name.category)
+            .map({ (notification) -> Int in
+                let indexPath = (notification.object as? IndexPath) ?? IndexPath(item: 0, section: 0)
+                return indexPath.row
+            })
+            .bindTo(inputStuff.category)
+            .addDisposableTo(rx_disposeBag)
+
+        NotificationCenter.default.rx.notification(Notification.Name.category)
+            .map({ (notification) -> Int in
+                let indexPath = (notification.object as? IndexPath) ?? IndexPath(item: 0, section: 0)
+                return indexPath.row
+            })
+            .observeOn(MainScheduler.asyncInstance)
+            .do(onNext: { (_) in
+                SideMenuManager.menuLeftNavigationController?.dismiss(animated: true, completion: {
+                    DispatchQueue.main.async(execute: {
+                        self.tableView.refreshControl?.beginRefreshing()
+                    })
+                })
+            }, onError: nil, onCompleted: nil, onSubscribe:nil,onDispose: nil)
+            .bindTo(outputStuff.refreshCommand)
+            .addDisposableTo(rx_disposeBag)
+
+        // Configure
+        outputStuff.dataSource.configureCell = { dataSource, tableView, indexPath, item in
+            let cell = tableView.dequeueReusableCell(for: indexPath, cellType: HomeTableViewCell.self)
+            cell.gankTitle?.text = item.desc
+            cell.gankAuthor.text = item.who
+            cell.gankTime.text = item.publishedAt.toString(format: "YYYY/MM/DD")
+            return cell
+        }
+
+        outputStuff.section
+            .drive(tableView.rx.items(dataSource: outputStuff.dataSource))
+            .addDisposableTo(rx_disposeBag)
+
+        tableView.rx.setDelegate(self)
+            .addDisposableTo(rx_disposeBag)
+
+        outputStuff.refreshTrigger
+            .observeOn(MainScheduler.instance)
+            .subscribe { [unowned self] (event) in
+                self.tableView.refreshControl?.endRefreshing()
+                switch event {
+                case .error(_):
+                    NoticeBar(title: "Network Disconnect!", defaultType: .error).show(duration: 2.0, completed: nil)
+                    break
+                case .next(_):
+                    self.tableView.reloadData()
+                    break
+                default:
+                    break
+                }
+            }
+            .addDisposableTo(rx_disposeBag)
+    }
+
+    fileprivate func configNotification() {
+        NotificationCenter.default.post(name: Notification.Name.category, object: IndexPath(row: 0, section: 0))
+    }
 }
 
 extension HomeViewController {

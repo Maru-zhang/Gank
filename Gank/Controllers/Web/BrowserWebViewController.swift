@@ -63,7 +63,7 @@ extension BrowserWebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didCommit navigation: WKNavigation!) {
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
         webView.evaluateJavaScript("document.title", completionHandler: {(response, _) in
-            self.title = response as! String?
+            self.title = response as? String
         })
     }
 
