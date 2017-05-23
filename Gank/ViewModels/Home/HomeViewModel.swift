@@ -9,25 +9,12 @@
 import UIKit
 import RxSwift
 import RxCocoa
-import RxDataSources
 import Moya
+import NSObject_Rx
 
-struct HomeSection {
+typealias GankType = GankAPI.GankCategory
 
-    var items: [Item]
-}
-
-extension HomeSection: SectionModelType {
-
-    typealias Item = Brick
-
-    init(original: HomeSection, items: [HomeSection.Item]) {
-        self = original
-        self.items = items
-    }
-}
-
-final class HomeViewModel: NSObject,ViewModelType {
+final class HomeViewModel: NSObject, ViewModelType {
 
     typealias Input  = HomeInput
     typealias Output = HomeOutput
@@ -43,7 +30,6 @@ final class HomeViewModel: NSObject,ViewModelType {
         let section: Driver<[HomeSection]>
         let refreshCommand = PublishSubject<Int>()
         let refreshTrigger = PublishSubject<Void>()
-        let dataSource = RxTableViewSectionedReloadDataSource<HomeSection>()
 
         init(homeSection: Driver<[HomeSection]>) {
             section = homeSection
@@ -66,7 +52,7 @@ final class HomeViewModel: NSObject,ViewModelType {
         let output = Output(homeSection: section)
 
         output.refreshCommand
-            .flatMapLatest { gankApi.request(.data(type: GankAPI.GankCategory.mapCategory(with: $0), size: 20, index: 0)) }
+            .flatMapLatest { gankApi.request(.data(type: GankType.mapCategory(with: $0), size: 20, index: 0)) }
             .subscribe({ [weak self] (event) in
                 output.refreshTrigger.onNext()
                 switch event {

@@ -1,10 +1,4 @@
-//
-//  AppDelegate.swift
-//  Gank
-//
-//  Created by Maru on 2016/11/30.
-//  Copyright © 2016年 Maru. All rights reserved.
-//
+// swiftlint:disable line_length
 
 import UIKit
 import Kingfisher

@@ -9,7 +9,7 @@
 import UIKit
 import Reusable
 
-final class HomeTableViewCell: UITableViewCell,NibReusable {
+final class HomeTableViewCell: UITableViewCell, NibReusable {
 
     @IBOutlet weak var gankTitle: UILabel!
     @IBOutlet weak var gankAuthor: UILabel!

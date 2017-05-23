@@ -7,11 +7,12 @@
 //
 
 import Foundation
+import RxDataSources
 import ObjectMapper
 
-struct Brick: Equatable,Mappable {
+struct Brick: Equatable, Mappable {
 
-    var id: String         = ""
+    var id: String          = ""
     var createdAt: Date     = Date()
     var desc: String        = ""
     var publishedAt: Date   = Date()
@@ -43,4 +44,19 @@ struct Brick: Equatable,Mappable {
         images <- map["images"]
     }
 
+}
+
+struct HomeSection {
+
+    var items: [Item]
+}
+
+extension HomeSection: SectionModelType {
+
+    typealias Item = Brick
+
+    init(original: HomeSection, items: [HomeSection.Item]) {
+        self = original
+        self.items = items
+    }
 }

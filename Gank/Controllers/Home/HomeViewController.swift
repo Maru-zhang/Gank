@@ -1,10 +1,4 @@
-//
-//  HomeViewController.swift
-//  Gank
-//
-//  Created by Maru on 2016/12/1.
-//  Copyright © 2016年 Maru. All rights reserved.
-//
+// swiftlint:disable function_body_length
 
 import UIKit
 import SwiftWebVC
@@ -19,6 +13,7 @@ import Kingfisher
 import NoticeBar
 import SideMenu
 import PullToRefresh
+import RxDataSources
 
 final class HomeViewController: UIViewController {
 
@@ -29,6 +24,8 @@ final class HomeViewController: UIViewController {
     let refreshControl = PullToRefresh()
 
     let homeVM = HomeViewModel()
+
+    let dataSource = RxTableViewSectionedReloadDataSource<HomeSection>()
 
     // MARK: - Life Cycle
 
@@ -62,9 +59,7 @@ extension HomeViewController {
             make.edges.equalTo(view)
         }
     }
-
     fileprivate func configBinding() {
-
 
         // Input
         let inputStuff  = HomeViewModel.HomeInput()
@@ -97,12 +92,12 @@ extension HomeViewController {
                         self.tableView.refreshControl?.beginRefreshing()
                     })
                 })
-            }, onError: nil, onCompleted: nil, onSubscribe:nil,onDispose: nil)
+            }, onError: nil, onCompleted: nil, onSubscribe: nil, onDispose: nil)
             .bindTo(outputStuff.refreshCommand)
             .addDisposableTo(rx_disposeBag)
 
         // Configure
-        outputStuff.dataSource.configureCell = { dataSource, tableView, indexPath, item in
+        dataSource.configureCell = { dataSource, tableView, indexPath, item in
             let cell = tableView.dequeueReusableCell(for: indexPath, cellType: HomeTableViewCell.self)
             cell.gankTitle?.text = item.desc
             cell.gankAuthor.text = item.who
@@ -111,7 +106,7 @@ extension HomeViewController {
         }
 
         outputStuff.section
-            .drive(tableView.rx.items(dataSource: outputStuff.dataSource))
+            .drive(tableView.rx.items(dataSource: dataSource))
             .addDisposableTo(rx_disposeBag)
 
         tableView.rx.setDelegate(self)

@@ -23,6 +23,7 @@ def shared_pods
     pod 'SwiftWebVC'
     pod 'SideMenu'
     pod 'SwiftyBeaver'
+    pod 'NSObject+Rx'
 end
 
 target :'Gank' do

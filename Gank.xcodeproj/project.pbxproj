@@ -20,7 +20,6 @@
 		AFA7EC731DEEDEDC00138AEE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFA7EC711DEEDEDC00138AEE /* Main.storyboard */; };
 		AFA7EC751DEEDEDC00138AEE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFA7EC741DEEDEDC00138AEE /* Assets.xcassets */; };
 		AFA7EC781DEEDEDC00138AEE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFA7EC761DEEDEDC00138AEE /* LaunchScreen.storyboard */; };
-		AFBBA5CA1E05320A003605D1 /* NSObject+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBBA5C91E05320A003605D1 /* NSObject+Rx.swift */; };
 		AFBBA5CD1E06F783003605D1 /* Response+ObjectMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBBA5CC1E06F783003605D1 /* Response+ObjectMapper.swift */; };
 		AFBDB2621DF58F23003E8EE2 /* GankAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFBDB2611DF58F23003E8EE2 /* GankAPI.swift */; };
 		AFCB661E1DF844DB00916E1B /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCB661D1DF844DB00916E1B /* HomeViewModel.swift */; };
@@ -47,7 +46,6 @@
 		AFA7EC771DEEDEDC00138AEE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AFA7EC791DEEDEDC00138AEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AFA7EC831DEF4D5900138AEE /* Gank-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Gank-Bridging-Header.h"; sourceTree = "<group>"; };
-		AFBBA5C91E05320A003605D1 /* NSObject+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Rx.swift"; sourceTree = "<group>"; };
 		AFBBA5CC1E06F783003605D1 /* Response+ObjectMapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Response+ObjectMapper.swift"; sourceTree = "<group>"; };
 		AFBDB2611DF58F23003E8EE2 /* GankAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GankAPI.swift; sourceTree = "<group>"; };
 		AFCB661D1DF844DB00916E1B /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -169,7 +167,6 @@
 				AFCB661B1DF844B100916E1B /* ViewModels */,
 				AFA7EC7F1DEF4BB400138AEE /* Controllers */,
 				AFBDB25F1DF58ED9003E8EE2 /* Services */,
-				AFBBA5C71E0531C2003605D1 /* Vendors */,
 				AFBBA5CB1E06F76C003605D1 /* Extensions */,
 				AFE2BA981E8143CD0066474E /* Protocol */,
 				AFA7EC6D1DEEDEDC00138AEE /* AppDelegate.swift */,
@@ -199,22 +196,6 @@
 				AFA7EC831DEF4D5900138AEE /* Gank-Bridging-Header.h */,
 			);
 			path = Config;
-			sourceTree = "<group>";
-		};
-		AFBBA5C71E0531C2003605D1 /* Vendors */ = {
-			isa = PBXGroup;
-			children = (
-				AFBBA5C81E0531FF003605D1 /* NSObject+Rx */,
-			);
-			path = Vendors;
-			sourceTree = "<group>";
-		};
-		AFBBA5C81E0531FF003605D1 /* NSObject+Rx */ = {
-			isa = PBXGroup;
-			children = (
-				AFBBA5C91E05320A003605D1 /* NSObject+Rx.swift */,
-			);
-			path = "NSObject+Rx";
 			sourceTree = "<group>";
 		};
 		AFBBA5CB1E06F76C003605D1 /* Extensions */ = {
@@ -426,7 +407,6 @@
 				AF69F0F01E0E0C9400735284 /* SideViewController.swift in Sources */,
 				AF3C0C241E0AA851002644DD /* Config.swift in Sources */,
 				AF9F0FD41DF1A91300FF8EC5 /* HomeViewController.swift in Sources */,
-				AFBBA5CA1E05320A003605D1 /* NSObject+Rx.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

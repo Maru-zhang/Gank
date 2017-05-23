@@ -26,7 +26,7 @@ public extension Response {
   public func mapArray<T: BaseMappable>(_ type: T.Type) throws -> [T] {
 
     guard let json = try mapJSON() as? [String: Any],
-          let objects = Mapper<T>().mapArray(JSONArray: json["results"] as! [[String : Any]]) else {
+          let objects = Mapper<T>().mapArray(JSONArray: (json["results"] as? [[String : Any]])!) else {
         throw Error.jsonMapping(self)
     }
 
