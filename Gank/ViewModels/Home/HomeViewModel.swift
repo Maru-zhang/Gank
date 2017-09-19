@@ -26,7 +26,6 @@ final class HomeViewModel: NSObject, ViewModelType {
 
     // Output
     struct HomeOutput {
-
         let section: Driver<[HomeSection]>
         let refreshCommand = PublishSubject<Int>()
         let refreshTrigger = PublishSubject<Void>()
@@ -43,14 +42,11 @@ final class HomeViewModel: NSObject, ViewModelType {
 
     /// Tansform Action for DataBinding
     func transform(input: HomeViewModel.Input) -> HomeViewModel.Output {
-
         let section = _bricks.asObservable().map({ (bricks) -> [HomeSection] in
             return [HomeSection(items: bricks)]
         })
         .asDriver(onErrorJustReturn: [])
-
         let output = Output(homeSection: section)
-
         output.refreshCommand
             .flatMapLatest { gankApi.request(.data(type: GankType.mapCategory(with: $0), size: 20, index: 0)) }
             .subscribe({ [weak self] (event) in
@@ -71,14 +67,13 @@ final class HomeViewModel: NSObject, ViewModelType {
                     break
                 }
             })
-            .addDisposableTo(rx_disposeBag)
+            .addDisposableTo(rx.disposeBag)
 
         return output
     }
 
     override init() {
         super.init()
-
         _bricks.asObservable().map { (bricks) -> [URL] in
             return bricks.map({ (brick) -> URL in
                 return URL(string: brick.url)!
@@ -86,7 +81,6 @@ final class HomeViewModel: NSObject, ViewModelType {
         }.subscribe(onNext: { [weak self] (urls) in
             self?.itemURLs.value = urls
         }, onError: nil, onCompleted: nil, onDisposed: nil)
-        .addDisposableTo(rx_disposeBag)
+        .addDisposableTo(rx.disposeBag)
     }
-
 }

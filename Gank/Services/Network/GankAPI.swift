@@ -54,6 +54,12 @@ enum GankAPI {
 
 extension GankAPI: TargetType {
 
+    /// The method used for parameter encoding.
+    var parameterEncoding: ParameterEncoding {
+        return URLEncoding.default
+    }
+
+
     var baseURL: URL { return URL(string: "http://gank.io")! }
 
     var path: String {

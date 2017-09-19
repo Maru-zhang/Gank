@@ -35,14 +35,6 @@ final class HomeViewController: UIViewController {
         configBinding()
         configNotification()
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
 }
 
 extension HomeViewController {
@@ -69,16 +61,16 @@ extension HomeViewController {
         // DataBinding
         tableView.refreshControl?.rx.controlEvent(.allEvents)
             .flatMap({ inputStuff.category.asObservable() })
-            .bindTo(outputStuff.refreshCommand)
-            .addDisposableTo(rx_disposeBag)
+            .bind(to: outputStuff.refreshCommand)
+            .addDisposableTo(rx.disposeBag)
 
         NotificationCenter.default.rx.notification(Notification.Name.category)
             .map({ (notification) -> Int in
                 let indexPath = (notification.object as? IndexPath) ?? IndexPath(item: 0, section: 0)
                 return indexPath.row
             })
-            .bindTo(inputStuff.category)
-            .addDisposableTo(rx_disposeBag)
+            .bind(to: inputStuff.category)
+            .addDisposableTo(rx.disposeBag)
 
         NotificationCenter.default.rx.notification(Notification.Name.category)
             .map({ (notification) -> Int in
@@ -93,8 +85,8 @@ extension HomeViewController {
                     })
                 })
             }, onError: nil, onCompleted: nil, onSubscribe: nil, onDispose: nil)
-            .bindTo(outputStuff.refreshCommand)
-            .addDisposableTo(rx_disposeBag)
+            .bind(to: outputStuff.refreshCommand)
+            .addDisposableTo(rx.disposeBag)
 
         // Configure
         dataSource.configureCell = { dataSource, tableView, indexPath, item in
@@ -107,10 +99,10 @@ extension HomeViewController {
 
         outputStuff.section
             .drive(tableView.rx.items(dataSource: dataSource))
-            .addDisposableTo(rx_disposeBag)
+            .addDisposableTo(rx.disposeBag)
 
         tableView.rx.setDelegate(self)
-            .addDisposableTo(rx_disposeBag)
+            .addDisposableTo(rx.disposeBag)
 
         outputStuff.refreshTrigger
             .observeOn(MainScheduler.instance)
@@ -127,7 +119,7 @@ extension HomeViewController {
                     break
                 }
             }
-            .addDisposableTo(rx_disposeBag)
+            .addDisposableTo(rx.disposeBag)
     }
 
     fileprivate func configNotification() {

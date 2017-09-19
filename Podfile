@@ -3,13 +3,12 @@ platform :ios, '9.0'
 use_frameworks!
 
 def shared_pods
-    pod 'SwiftLint'
     pod 'Moya', '~> 8.0.0-beta.5'
     pod 'Moya/RxSwift'
     pod 'RxSwift'
-	pod 'RxDataSources', '~> 1.0'
+	pod 'RxDataSources'
 	pod 'Reusable', '3.0.0'
-	pod 'Kingfisher', '~> 3.1.4'
+	pod 'Kingfisher', '~> 3.10.0'
 	pod 'Alamofire'
     pod 'Then', '~> 2.1'
     pod 'SnapKit', '~> 3.0.2'
