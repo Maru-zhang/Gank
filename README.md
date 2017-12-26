@@ -1,5 +1,5 @@
 # Gank
-A iOS Client of gank.io written in Swift3.0 + MVVM + RxSwift.
+A iOS Client of gank.io written in Swift4.0 + MVVM + RxSwift.
 
 
 # Screenshot
