@@ -67,7 +67,7 @@ final class HomeViewModel: NSObject, ViewModelType {
                     break
                 }
             })
-            .addDisposableTo(rx.disposeBag)
+            .disposed(by: rx.disposeBag)
 
         return output
     }
@@ -76,11 +76,11 @@ final class HomeViewModel: NSObject, ViewModelType {
         super.init()
         _bricks.asObservable().map { (bricks) -> [URL] in
             return bricks.map({ (brick) -> URL in
-                return URL(string: brick.url)!
+                return URL(string: brick.url) ?? URL(string: "https://www.baidu.com")!
             })
         }.subscribe(onNext: { [weak self] (urls) in
             self?.itemURLs.value = urls
         }, onError: nil, onCompleted: nil, onDisposed: nil)
-        .addDisposableTo(rx.disposeBag)
+        .disposed(by: rx.disposeBag)
     }
 }
